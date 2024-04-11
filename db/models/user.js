@@ -13,6 +13,7 @@ const UserSchema = new Schema({
     minLength: 5,
     maxLength: 200
   },
+  favoriteRecipes: [drinkSchema]
 })
 
 // hashes the password before it's stored in mongo
