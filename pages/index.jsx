@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
 import styles from "../styles/Home.module.css";
-import Header from "../components/header/header";
+import Header from "../components/header";
 import useLogout from "../hooks/useLogout";
 
 export const getServerSideProps = withIronSessionSsr(
