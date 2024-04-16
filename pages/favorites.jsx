@@ -39,26 +39,23 @@ export default function Dashboard(props) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to your dashboard!
+          Favorites Page!
         </h1>
-
-        {/* <p className={styles.description}>
-          Current Location: <code className={styles.code}>{router.asPath}</code>
-          <br />
-          Status:{" "}
-          <code className={styles.code}>
-            {!props.isLoggedIn && " Not"} Logged In
-          </code>
-        </p>
-
-        <p className={styles.description}>
-          This page is only visible if you are logged in.
-        </p> */}
+        <div className={styles.grid}>
+          <Link href="/search" className={styles.card}>
+            <h2>Search for a drink</h2>
+          </Link>
+        </div>
+        <div>
+          <p>Favorite</p>
+          <p>Favorite</p>
+          <p>Favorite</p>
+          <p>Favorite</p>
+        </div>
 
         <div className={styles.grid}>
           <Link href="/" className={styles.card}>
-            <h2>Home &rarr;</h2>
-            <p>Return to the welcome page.</p>
+            <h2>Home</h2>
           </Link>
           <div
             onClick={logout}

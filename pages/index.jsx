@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
@@ -8,6 +7,7 @@ import styles from "../styles/Home.module.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import useLogout from "../hooks/useLogout";
+
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
@@ -27,6 +27,7 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Home(props) {
   const router = useRouter();
   const logout = useLogout();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -42,20 +43,28 @@ export default function Home(props) {
           Welcome to Tipsy Spirits
         </h1>
 
-        {/* <p className={styles.description}>
-          Current Location: <code className={styles.code}>{router.asPath}</code>
-          <br />
-          Status:{" "}
-          <code className={styles.code}>
-            {!props.isLoggedIn && " Not"} Logged In
-          </code>
-        </p> */}
+        <div>
+          {props.isLoggedIn ? (
+            <>
+              <p className={styles.description}>
+                Here is the drink of the day
+              </p>
+            </>
+          ): (
+            <>
+              <p className={styles.description}>
+                Log in or Sign Up!
+              </p>
+            </>
+          )}
+        </div>
+       
 
         <div className={styles.grid}>
           {props.isLoggedIn ? (
             <>
-              <Link href="/dashboard" className={styles.card}>
-                <h2>Dashboard</h2>
+              <Link href="/favorites" className={styles.card}>
+                <h2>My Favorites</h2>
               </Link>
               <div
                 onClick={logout}
@@ -69,12 +78,10 @@ export default function Home(props) {
             <>
               <Link href="/login" className={styles.card}>
                 <h2>Login </h2>
-                <p>Visit the login page.</p>
               </Link>
 
               <Link href="/signup" className={styles.card}>
-                <h2>Create Account </h2>
-                <p>Create an account.</p>
+                <h2>Sign Up </h2>
               </Link>
             </>
           )}

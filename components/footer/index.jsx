@@ -1,6 +1,5 @@
 import styles from "./style.module.css";
-import Link from "next/link";
-import useLogout from "../../../03-DB_and_Auth/mongo-auth-example/hooks/useLogout";
+import Image from "next/image";
 
 export default function Footer(props) {
   return (
