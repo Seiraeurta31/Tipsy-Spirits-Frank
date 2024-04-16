@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
-import Header from "../components/header";
+import Header from "../components/header/header";
 import useLogout from "../hooks/useLogout";
 
 export const getServerSideProps = withIronSessionSsr(
@@ -38,10 +38,10 @@ export default function Dashboard(props) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to a <a href="https://nextjs.org">Next.js!</a> Dashboard Page!
+          Welcome to your dashboard!
         </h1>
 
-        <p className={styles.description}>
+        {/* <p className={styles.description}>
           Current Location: <code className={styles.code}>{router.asPath}</code>
           <br />
           Status:{" "}
@@ -52,20 +52,19 @@ export default function Dashboard(props) {
 
         <p className={styles.description}>
           This page is only visible if you are logged in.
-        </p>
+        </p> */}
 
         <div className={styles.grid}>
           <Link href="/" className={styles.card}>
             <h2>Home &rarr;</h2>
-            <p>Return to the homepage.</p>
+            <p>Return to the welcome page.</p>
           </Link>
           <div
             onClick={logout}
             style={{ cursor: "pointer" }}
             className={styles.card}
           >
-            <h2>Logout &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+            <h2>Logout</h2>
           </div>
         </div>
       </main>

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
 import styles from "../styles/Home.module.css";
-import Header from "../components/header";
+import Header from "../components/header/header";
 import useLogout from "../hooks/useLogout";
 
 export const getServerSideProps = withIronSessionSsr(
@@ -38,43 +38,41 @@ export default function Home(props) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to Tipsy Spirits
         </h1>
 
-        <p className={styles.description}>
+        {/* <p className={styles.description}>
           Current Location: <code className={styles.code}>{router.asPath}</code>
           <br />
           Status:{" "}
           <code className={styles.code}>
             {!props.isLoggedIn && " Not"} Logged In
           </code>
-        </p>
+        </p> */}
 
         <div className={styles.grid}>
           {props.isLoggedIn ? (
             <>
               <Link href="/dashboard" className={styles.card}>
-                <h2>Dashboard &rarr;</h2>
-                <p>This page is only visible if you are logged in.</p>
+                <h2>Dashboard</h2>
               </Link>
               <div
                 onClick={logout}
                 style={{ cursor: "pointer" }}
                 className={styles.card}
               >
-                <h2>Logout &rarr;</h2>
-                <p>Click here to log out.</p>
+                <h2>Logout</h2>
               </div>
             </>
           ) : (
             <>
               <Link href="/login" className={styles.card}>
-                <h2>Login &rarr;</h2>
+                <h2>Login </h2>
                 <p>Visit the login page.</p>
               </Link>
 
               <Link href="/signup" className={styles.card}>
-                <h2>Create Account &rarr;</h2>
+                <h2>Create Account </h2>
                 <p>Create an account.</p>
               </Link>
             </>

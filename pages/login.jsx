@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
-import Header from "../components/header";
+import Header from "../components/header/header";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
@@ -62,17 +62,17 @@ export default function Login(props) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to the <a href="https://nextjs.org">Next.js</a> Login Page!
+          Account Log In:
         </h1>
 
-        <p className={styles.description}>
+        {/* <p className={styles.description}>
           Current Location: <code className={styles.code}>{router.asPath}</code>
           <br />
           Status:{" "}
           <code className={styles.code}>
             {!props.isLoggedIn && " Not"} Logged In
           </code>
-        </p>
+        </p> */}
 
         <form
           className={[styles.card, styles.form].join(" ")}
