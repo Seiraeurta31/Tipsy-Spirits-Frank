@@ -1,5 +1,6 @@
 import { withIronSessionSsr } from "iron-session/next";
 import Header from '../components/header'
+import Footer from "../components/footer";
 
 
 
@@ -59,6 +60,7 @@ export const getServerSideProps = withIronSessionSsr(
         </Head>
   
         <Header isLoggedIn={props.isLoggedIn} />
+
         <main>
           <h1 className={styles.title}>Book Search</h1>
           <form onSubmit={handleSubmit} className={styles.form}>
@@ -85,6 +87,8 @@ export const getServerSideProps = withIronSessionSsr(
             clearSearch={() => setQuery("")}/>
           }
         </main>
+
+        <Footer/>
       </>
     )
   }
