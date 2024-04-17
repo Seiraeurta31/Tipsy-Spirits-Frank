@@ -1,5 +1,7 @@
 import { withIronSessionSsr } from "iron-session/next";
 import Head from "next/head";
+import Link from 'next/link'
+import Image from 'next/image'
 import sessionOptions from "../config/session";
 import Header from '../components/header'
 import { useState, useRef } from 'react'
@@ -28,7 +30,8 @@ export default function Search(props) {
   const inputRef = useRef()
   const inputDivRef = useRef()
   const [query, setQuery] = useState("")
-  const [drinks, setDrinks] = useState([])
+  const [[drinks], setDrinks] = useState([])
+
 
   async function searchByIngredient(e) {
     e.preventDefault()
@@ -40,26 +43,40 @@ export default function Search(props) {
     const data = await res.json()
     console.log("JSON Data: ", data)
 
-    const drinkResults = data.drinks.map((drink) => ({
-      id: drink.idDrink,
-      name: drink.strDrink,
-      image: drink.strImageSource
-    }))
-
-    console.log("DrinkResults: ", drinkResults)
-
-    setDrinks(drinks => [...drinks, drinkResults]) //HELP: How to set state with new Array
-    console.log("drink from useState: ", drinks)
-
+    const drinksByIngredient = drinkPreviewFormatting(data)
+    setDrinks([drinksByIngredient])
+    console.log("drinks saved in state: ", drinks)
   }
+
 
   async function searchByName(e) {
     e.preventDefault()
     const res = await fetch(
-      `https://www.googleapis.com/books/v1/volumes?langRestrict=en&q=${query}&maxResults=16`
+      `https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=${query}` //HELP: How to access API key in .env.Local
     )
+    if (res.status !== 200) return
+    const data = await res.json()
+    console.log("JSON Data: ", data)
 
+    const drinksByName = drinkPreviewFormatting(data)
+
+    setDrinks([drinksByName])
   }
+
+
+   function drinkPreviewFormatting (data) {
+    const drinkPreviewData = data.drinks.map((drink) => ({
+      id: drink.idDrink,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb
+    }))
+
+    console.log("Drink Preview Formatted Array: ", drinkPreviewData)
+
+    return drinkPreviewData
+  }
+
+  console.log("drinks saved in state: ", drinks)
 
   return (
     <>
@@ -90,11 +107,39 @@ export default function Search(props) {
           </div>
         </form>
       
+      {
+        drinks?.length
+        ? <section className={styles.results}>
+          {/* TODO: Render recipes with RecipePreview Component */}
+          {drinks.map((drink, i) => (
+            <DrinkPreview 
+              key={i}
+              id={drink.id} 
+              name={drink.title} 
+              image={drink.image}>
+            </DrinkPreview>
+          ))}
+        </section>
+        : <p className={styles.noResults}>No Drinks Found!</p>
+      }
       </main>
 
       <Footer/>
     </>
   )
 }
+
+//Drink preview card
+function DrinkPreview({id, name, image}) {
+  const noImage = "/No_image_available.svg.png"
+  return (
+    <Link href={'/drink/' + id} className={styles.preview}>
+      <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
+      <span>{name}</span>
+    </Link>
+  )
+}
+
+
   
   

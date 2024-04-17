@@ -6,3 +6,4 @@ export default {
     secure: process.env.NODE_ENV === "production",
   },
 }
+
