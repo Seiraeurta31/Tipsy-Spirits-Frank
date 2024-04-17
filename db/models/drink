@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
 
 const drinkSchema = new Schema({
-  id: Number,
+  coctailId: Number,
   name: String,
   image: String,
   instructions: String,

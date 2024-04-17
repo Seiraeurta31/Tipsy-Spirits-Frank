@@ -25,26 +25,25 @@ export const getServerSideProps = withIronSessionSsr(
 );
 
 
-
 export default function Search(props) {
   const inputRef = useRef()
   const inputDivRef = useRef()
   const [query, setQuery] = useState("")
-  const [[drinks], setDrinks] = useState([])
+  const [drinks, setDrinks] = useState([])
 
 
   async function searchByIngredient(e) {
     e.preventDefault()
     console.log("ingredient search triggered")
     const res = await fetch(
-      `https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=${query}` //HELP: How to access API key in .env.Local
+      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${query}` //HELP: How to access API key in .env.Local
     )
     if (res.status !== 200) return
     const data = await res.json()
     console.log("JSON Data: ", data)
 
     const drinksByIngredient = drinkPreviewFormatting(data)
-    setDrinks([drinksByIngredient])
+    setDrinks(drinksByIngredient)
     console.log("drinks saved in state: ", drinks)
   }
 
@@ -52,7 +51,7 @@ export default function Search(props) {
   async function searchByName(e) {
     e.preventDefault()
     const res = await fetch(
-      `https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=${query}` //HELP: How to access API key in .env.Local
+      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${query}` //HELP: How to access API key in .env.Local
     )
     if (res.status !== 200) return
     const data = await res.json()
@@ -60,13 +59,13 @@ export default function Search(props) {
 
     const drinksByName = drinkPreviewFormatting(data)
 
-    setDrinks([drinksByName])
+    setDrinks(drinksByName)
   }
 
 
    function drinkPreviewFormatting (data) {
     const drinkPreviewData = data.drinks.map((drink) => ({
-      id: drink.idDrink,
+      cocktailId: drink.idDrink,
       name: drink.strDrink,
       image: drink.strDrinkThumb
     }))
@@ -81,9 +80,9 @@ export default function Search(props) {
   return (
     <>
       <Head>
-        <title>Booker Search</title>
+        <title>dRINK Search</title>
         <meta name="description" content="The Booker Search Page" />
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
