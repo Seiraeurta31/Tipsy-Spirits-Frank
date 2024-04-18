@@ -5,82 +5,77 @@ import Image from 'next/image'
 import sessionOptions from "../config/session";
 import Header from '../components/header'
 import { useState, useRef } from 'react'
+import { useRouter } from 'next/router'
 import styles from '../styles/Search.module.css'
 import Footer from "../components/footer";
-import { set } from "mongoose";
+import { getDrinksByIngredient, getDrinksByName} from "../util/cocktails"
 
 
-//Get session information for the user
+//Get session for the user/ /cocktail information from API
 export const getServerSideProps = withIronSessionSsr(
-  async function getServerSideProps({ req }) {
-    const { user } = req.session;
-    const props = {};
+  async function getServerSideProps( {req}, context ) {
+    const { user } = req.session
+    const props = {}
+    
     if (user) {
-      props.user = req.session.user;
+      props.user = req.session.user
     }
-    props.isLoggedIn = !!user;
-    return { props };
+    props.isLoggedIn = !!user
+
+    const searchIngredient = context.query.i
+    const searchName = context.query.n
+
+    if(searchIngredient){
+      console.log("context check triggered")
+      const drinksByIngredient = await getDrinksByIngredient(searchIngredient) 
+      props.drinks = drinksByIngredient
+    }
+    else if(searchName){
+      const drinksByName = await getDrinksByName(searchName) 
+      props.drinks = drinksByName
+    }
+
+    return { props }
   },
   sessionOptions
 );
 
 
 export default function Search(props) {
+  const router = useRouter()
   const inputRef = useRef()
   const inputDivRef = useRef()
   const [query, setQuery] = useState("")
   const [drinks, setDrinks] = useState([])
 
 
+  // Handler for form submission to refresh URL with ingredient query
   async function searchByIngredient(e) {
     e.preventDefault()
-    console.log("ingredient search triggered")
-    const res = await fetch(
-      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${query}` //HELP: How to access API key in .env.Local
-    )
-    if (res.status !== 200) return
-    const data = await res.json()
-    console.log("JSON Data: ", data)
-
-    const drinksByIngredient = drinkPreviewFormatting(data)
-    setDrinks(drinksByIngredient)
-    console.log("drinks saved in state: ", drinks)
+    console.log ("Query ingredient: ", query)
+    if (!query.trim()) return 
+    // const drinksByIngredient = await getDrinksByIngredient(query) 
+    // setDrinks(drinksByIngredient)
+    router.replace(router.pathname + `?i=${query}`)  //i = ingredient
   }
-
 
   async function searchByName(e) {
     e.preventDefault()
-    const res = await fetch(
-      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${query}` //HELP: How to access API key in .env.Local
-    )
-    if (res.status !== 200) return
-    const data = await res.json()
-    console.log("JSON Data: ", data)
-
-    const drinksByName = drinkPreviewFormatting(data)
-
-    setDrinks(drinksByName)
+    if (!query.trim()) return
+    console.log ("Query name: ", query)
+    // const drinksByName = await getDrinksByName(query)
+    // setDrinks(drinksByName)
+    router.replace(router.pathname + `?n=${query}`) //n = name
   }
 
-
-   function drinkPreviewFormatting (data) {
-    const drinkPreviewData = data.drinks.map((drink) => ({
-      cocktailId: drink.idDrink,
-      name: drink.strDrink,
-      image: drink.strDrinkThumb
-    }))
-
-    console.log("Drink Preview Formatted Array: ", drinkPreviewData)
-
-    return drinkPreviewData
-  }
-
-  console.log("drinks saved in state: ", drinks)
+  if(props.drinks) {
+    setDrinks(props.drinks)
+  }  
 
   return (
     <>
       <Head>
-        <title>dRINK Search</title>
+        <title>Drink Search</title>
         <meta name="description" content="The Booker Search Page" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
@@ -91,7 +86,7 @@ export default function Search(props) {
       <main>
         <h1 className={styles.title}>Drink Search</h1>
         <form className={styles.form}>
-          <label htmlFor="drink-search">Search by ingredient:</label>
+          <label htmlFor="drink-search">Search for Drink:</label>
           <div ref={inputDivRef}>
             <input
               ref={inputRef}
@@ -101,7 +96,7 @@ export default function Search(props) {
               value={query}
               autoFocus={true}
               onChange={e => setQuery(e.target.value)}/>
-            <button onClick={searchByIngredient} type="submit">Search by Ingredient</button>
+            <button onClick={searchByIngredient} type="submit">Search By Ingredient</button>
             <button onClick={searchByName} type="submit">Search By Name</button>
           </div>
         </form>
