@@ -10,10 +10,9 @@ export async function getDrinksByIngredient(ingredient) {
     )
     if (res.status !== 200) return
     const data = await res.json()
-    console.log("JSON Data: ", data)
 
     const drinksByIngredient = drinkPreviewFormatting(data)
-    
+    console.log ("drinks formatted")
     return drinksByIngredient
 } 
 
@@ -25,7 +24,6 @@ export async function getDrinksByName(name) {
     )
     if (res.status !== 200) return
     const data = await res.json()
-    console.log("JSON Data: ", data)
 
     const drinksByName = drinkPreviewFormatting(data)
 

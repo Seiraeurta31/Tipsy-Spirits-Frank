@@ -13,29 +13,34 @@ import { getDrinksByIngredient, getDrinksByName} from "../util/cocktails"
 
 //Get session for the user/ /cocktail information from API
 export const getServerSideProps = withIronSessionSsr(
-  async function getServerSideProps( {req}, context ) {
+  async function getServerSideProps({req, query}) {
+
+    console.log("Get Request Triggered")
     const { user } = req.session
     const props = {}
-    
+    let searchedDrinks = []
+
     if (user) {
       props.user = req.session.user
     }
     props.isLoggedIn = !!user
 
-    const searchIngredient = context.query.i
-    const searchName = context.query.n
-
-    if(searchIngredient){
-      console.log("context check triggered")
-      const drinksByIngredient = await getDrinksByIngredient(searchIngredient) 
-      props.drinks = drinksByIngredient
+    if(query.i != undefined){
+      searchedDrinks = await getDrinksByIngredient(query.i)
+      console.log ("drinks returned")
+      console.log ("searched drinks: ", searchedDrinks)
+      props.drinks = searchedDrinks
+      return { props }
     }
-    else if(searchName){
-      const drinksByName = await getDrinksByName(searchName) 
-      props.drinks = drinksByName
+
+    if(query.n != undefined){
+      searchedDrinks = await getDrinksByName(query.n) 
+      props.drinks = searchedDrinks
+      return { props }
     }
 
     return { props }
+
   },
   sessionOptions
 );
@@ -48,11 +53,9 @@ export default function Search(props) {
   const [query, setQuery] = useState("")
   const [drinks, setDrinks] = useState([])
 
-
   // Handler for form submission to refresh URL with ingredient query
   async function searchByIngredient(e) {
     e.preventDefault()
-    console.log ("Query ingredient: ", query)
     if (!query.trim()) return 
     // const drinksByIngredient = await getDrinksByIngredient(query) 
     // setDrinks(drinksByIngredient)
@@ -62,7 +65,6 @@ export default function Search(props) {
   async function searchByName(e) {
     e.preventDefault()
     if (!query.trim()) return
-    console.log ("Query name: ", query)
     // const drinksByName = await getDrinksByName(query)
     // setDrinks(drinksByName)
     router.replace(router.pathname + `?n=${query}`) //n = name
@@ -71,6 +73,8 @@ export default function Search(props) {
   if(props.drinks) {
     setDrinks(props.drinks)
   }  
+
+  console.log ("page refreshed")
 
   return (
     <>
