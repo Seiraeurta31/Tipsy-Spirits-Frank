@@ -30,13 +30,11 @@ export const getServerSideProps = withIronSessionSsr(
       console.log ("drinks returned")
       console.log ("searched drinks: ", searchedDrinks)
       props.drinks = searchedDrinks
-      return { props }
     }
 
     if(query.n != undefined){
       searchedDrinks = await getDrinksByName(query.n) 
       props.drinks = searchedDrinks
-      return { props }
     }
 
     return { props }
@@ -51,7 +49,8 @@ export default function Search(props) {
   const inputRef = useRef()
   const inputDivRef = useRef()
   const [query, setQuery] = useState("")
-  const [drinks, setDrinks] = useState([])
+  // const [drinks, setDrinks] = useState(props.drinks)
+
 
   // Handler for form submission to refresh URL with ingredient query
   async function searchByIngredient(e) {
@@ -70,9 +69,9 @@ export default function Search(props) {
     router.replace(router.pathname + `?n=${query}`) //n = name
   }
 
-  if(props.drinks) {
-    setDrinks(props.drinks)
-  }  
+  // if(props.drinks) {
+  //   setDrinks(props.drinks)
+  // }  
 
   console.log ("page refreshed")
 
@@ -106,10 +105,10 @@ export default function Search(props) {
         </form>
       
       {
-        drinks?.length
+        props.drinks?.length
         ? <section className={styles.results}>
           {/* TODO: Render recipes with RecipePreview Component */}
-          {drinks.map((drink, i) => (
+          {props.drinks.map((drink, i) => (
             <DrinkPreview 
               key={i}
               id={drink.id} 
