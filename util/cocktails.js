@@ -6,11 +6,18 @@
 export async function getDrinksByIngredient(ingredient) {
     console.log("ingredient search triggered")
     const res = await fetch(
-      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${ingredient}` //TO DO: Put this call in a UTIL folder (server side)
+      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/filter.php?i=${ingredient}` //TO DO: Put this call in a UTIL folder (server side)
     )
-    if (res.status !== 200) return
+    if (res.status !== 200) 
+        return null
+
     const data = await res.json()
 
+    if(data.drinks == 'None Found')
+        return null
+    console.log("ingredient data: ", data)
+    console.log("search returned data")
+    
     const drinksByIngredient = drinkPreviewFormatting(data)
     console.log ("drinks formatted")
     return drinksByIngredient
@@ -22,7 +29,12 @@ export async function getDrinksByName(name) {
     const res = await fetch(
         `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${name}` //TO DO: Put this call in a UTIL folder (server side)
     )
-    if (res.status !== 200) return
+    if (res.status !== 200) 
+        return null
+    
+    if(data.drinks == 'None Found')
+    return null
+
     const data = await res.json()
 
     const drinksByName = drinkPreviewFormatting(data)
@@ -37,6 +49,8 @@ function drinkPreviewFormatting (data) {
         name: drink.strDrink,
         image: drink.strDrinkThumb
     }))
+
+    
 
     return drinkPreviewData
 }

@@ -29,13 +29,19 @@ export const getServerSideProps = withIronSessionSsr(
       searchedDrinks = await getDrinksByIngredient(query.i)
       console.log ("drinks returned")
       console.log ("searched drinks: ", searchedDrinks)
+      if(searchedDrinks){
+        props.drinks = searchedDrinks
+      }  
       props.drinks = searchedDrinks
     }
 
     if(query.n != undefined){
       searchedDrinks = await getDrinksByName(query.n) 
-      props.drinks = searchedDrinks
+      if(searchedDrinks){
+        props.drinks = searchedDrinks
+      }  
     }
+      
 
     return { props }
 
