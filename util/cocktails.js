@@ -15,6 +15,7 @@ export async function getDrinksByIngredient(ingredient) {
 
     if(data.drinks == 'None Found')
         return null
+
     console.log("ingredient data: ", data)
     console.log("search returned data")
     
@@ -31,11 +32,11 @@ export async function getDrinksByName(name) {
     )
     if (res.status !== 200) 
         return null
-    
-    if(data.drinks == 'None Found')
-    return null
 
     const data = await res.json()
+
+    if(data.drinks == 'None Found')
+        return null
 
     const drinksByName = drinkPreviewFormatting(data)
 
