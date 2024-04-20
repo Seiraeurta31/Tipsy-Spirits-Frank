@@ -59,6 +59,7 @@ export default function Drink( props) {
         id={drink.drinkId} 
         name={drink.name} 
         image={drink.image}
+        ingredients={drink.ingredients}
         instructions={drink.instructions}>
       </DrinkDetails>
         
@@ -66,10 +67,8 @@ export default function Drink( props) {
   )
 }   
 
-function DrinkDetails({name, image, instructions}) {
+function DrinkDetails({name, image, ingredients, instructions}) {
 
-    console.log("name: ", name)
-    console.log("ingredients: ", instructions)
     const noImage = "/No_image_available.svg.png"
 
     return (
@@ -78,7 +77,7 @@ function DrinkDetails({name, image, instructions}) {
           <h1>{name}</h1>
           <Image src={image ? image : noImage} width={556} height={370} alt={name} className={styles.recipeImg}/>
           <ul>
-            {/* {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)} */}
+            {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
           </ul>
           <p>{instructions}</p>
           

@@ -58,8 +58,6 @@ function drinkPreviewFormatting (data) {
 //Drinks searched by drinkId
 export async function getDrinkById(drinkId) {
 
-    console.log("Get Drink By Id TRIGGERED")
-
     console.log ("drink ID: ", drinkId)
     const res = await fetch(
         `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/lookup.php?i=${drinkId}` //TO DO: Put this call in a UTIL folder (server side)
@@ -68,8 +66,6 @@ export async function getDrinkById(drinkId) {
         return null
 
     const data = await res.json()
-
-    console.log("Data from API: ", data)
 
     if(data.drinks == 'None Found')
         return null
@@ -81,46 +77,54 @@ export async function getDrinkById(drinkId) {
 
 function drinkDetailsFormatting (data) {
 
-    const ingredients = ingredientsBuilder(data)
+    const ingredientsList = ingredientsBuilder(data)
+
+    console.log("Ingredients List: ", ingredientsList)
 
     const drinkDetailsData = data.drinks.map((drink) => ({
         drinkId: drink.idDrink,
         name: drink.strDrink,
         image: drink.strDrinkThumb,
+        ingredients: ingredientsList,
         instructions: drink.strInstructions
     }))
+
+    console.log (drinkDetailsData[0].ingredients)
 
     return drinkDetailsData
 }    
 
 function ingredientsBuilder (data){
-
-    console.log("Data: ", data)
     let drinkIngredientsArray = []
-    let ingredientName
+    var ingredientVar
+    let ingredient = ""
 
+    for(let i = 1; i<16; i++){
+        let ingredientstr = "strIngredient" + i
+        let ingredientVarString = `data.drinks[0].${ingredientstr}`
+        ingredientVar = eval(ingredientVarString)
 
+        console.log("Ingredient String Name: ", ingredientVar)
 
+        console.log("Ingredient Value: ", ingredientVar)
 
+        if(ingredientVar === null){
+            break;
+        }
+            
+        let measurementStr = "strMeasure"  + i
+        let measurementVarString = `data.drinks[0].${measurementStr}`
+        var measurementVar = eval(measurementVarString)
 
+        ingredient = `${measurementVar} ${ingredientVar} `
 
-    
-    ingredientName = "strIngredient" + 1
-    let ingredientString = `data.drinks[0].${ingredientName}`
+        console.log("Ingredient String: ", ingredient)
 
-    var myVar = eval(ingredientString)
+        drinkIngredientsArray.push(ingredient)
+    }      
 
-    console.log("My Var: ", myVar)
+    console.log("Drinks Array: ", drinkIngredientsArray)
 
-    console.log("data ingredient: ", ingredientString)
-    
-    console.log("Ingredient Name: ", ingredientName)
-
-
-
-    // for (let i = 1; ingredient !=null; i++) {
-     
-   
-    // }
+    return drinkIngredientsArray
 
 }
