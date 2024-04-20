@@ -117,8 +117,8 @@ export default function Search(props) {
           {props.drinks.map((drink, i) => (
             <DrinkPreview 
               key={i}
-              id={drink.id} 
-              name={drink.title} 
+              id={drink.drinkId} 
+              name={drink.name} 
               image={drink.image}>
             </DrinkPreview>
           ))}
