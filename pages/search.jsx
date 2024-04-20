@@ -8,7 +8,7 @@ import { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../styles/Search.module.css'
 import Footer from "../components/footer";
-import { getDrinksByIngredient, getDrinksByName} from "../util/cocktails"
+import { getDrinksByIngredient, getDrinksByName} from "../util/drinks"
 
 
 //Get session for the user/ /cocktail information from API

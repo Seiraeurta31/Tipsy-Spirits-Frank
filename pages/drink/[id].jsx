@@ -7,7 +7,7 @@ import sessionOptions from "../../config/session";
 import Header from '../../components/header';
 import styles from '../../styles/drink.module.css'
 import Image from 'next/image'
-import { getDrinkById } from '../../util/cocktails'
+import { getDrinkById } from '../../util/drinks'
 
 
 //TO DO: Update to retrieve drink data from external API
