@@ -10,18 +10,20 @@ import Image from 'next/image'
 import { getDrinkById } from '../../util/drinks'
 
 
-//TO DO: Update to retrieve drink data from external API
+//GET session info from req AND single drink data from external API
 export const getServerSideProps = withIronSessionSsr( //iron sessions grabs session info and ads to req
   async function getServerSideProps({ req, params }) {
   
     const { user } = req.session
     const props = {}
 
+    //GET drink from API from util/drinks
     const drink = await getDrinkById(params.id)
+
+    //If drink was found save it to props
     if (drink)
       props.drink = drink
 
-    console.log ("Drink by id returned: ", drink)
     props.isLoggedIn = !!user
     return { props }
   },
@@ -62,7 +64,7 @@ export default function Drink( props) {
         ingredients={drink.ingredients}
         instructions={drink.instructions}>
       </DrinkDetails>
-      
+
       <button onClick={() => router.back()} type="submit">Back</button>
     </>
   )

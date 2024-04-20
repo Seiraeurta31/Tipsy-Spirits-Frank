@@ -3,13 +3,11 @@
 
 //GET drinks by ingredient
 export async function getDrinksByIngredient(ingredient) {
-    console.log("ingredient search triggered")
     const res = await fetch(
       `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/filter.php?i=${ingredient}` //TO DO: Put this call in a UTIL folder (server side)
     )
-    
-    const drinksByIngredient = processDrinkData(res)
-
+    //Reassign API data KEY's to readable terms
+    const drinksByIngredient = drinkPreviewData(res)
     return drinksByIngredient
 } 
 
@@ -18,44 +16,37 @@ export async function getDrinksByName(name) {
     const res = await fetch(
         `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${name}` //TO DO: Put this call in a UTIL folder (server side)
     )
-
-    //Isolate necessary data into new array of drink objects 
-    const drinksByName = processDrinkData(res)
-  
+    //Reassign API data KEY's to readable terms
+    const drinksByName = drinkPreviewData(res)
     return drinksByName 
 }
 
 
-async function processDrinkData(res) {
-    if (res.status !== 200) 
-        return null
+async function drinkPreviewData(res) {
 
+    if (res.status !== 200) 
+    return null
+    
+    //Convert data to JSON format
     const data = await res.json()
 
-    if(data.drinks == 'None Found')
-        return null
+    //Confirms ingredient and/or name exists
+    if(data.drinks == 'None Found' || data.drinks == null )
+        return null   
     
-    //Isolate necessary data into new array of drink objects  
-    const formattedData = drinkPreviewFormatting(data)
-
-    return formattedData
-}
-
-
-// Formatting cocktail drink info to match future favorite drink schema model  
-function drinkPreviewFormatting (data) {
-    const drinkPreviewData = data.drinks.map((drink) => ({
+    //Assign keys to data   
+    const drinkData = data.drinks.map((drink) => ({
         drinkId: drink.idDrink,
         name: drink.strDrink,
         image: drink.strDrinkThumb
     }))
 
-    return drinkPreviewData
+    return drinkData
 }
 
 
 
-//Drinks searched by drinkId
+//GET drinks by id from drinks/[id]
 export async function getDrinkById(drinkId) {
 
     console.log ("drink ID: ", drinkId)
@@ -70,14 +61,16 @@ export async function getDrinkById(drinkId) {
     if(data.drinks == 'None Found')
         return null
 
-    const drinksById = drinkDetailsFormatting(data)
+    const drinksById = drinkDetailsData(data)
 
     return drinksById
 }
 
-function drinkDetailsFormatting (data) {
 
-    const ingredientsList = ingredientsBuilder(data)
+// Format drink data from id results 
+function drinkDetailsData (data) {
+
+    const ingredientsList = ingredientsListBuilder(data)
 
     const drinkDetailsData = data.drinks.map((drink) => ({
         drinkId: drink.idDrink,
@@ -90,7 +83,7 @@ function drinkDetailsFormatting (data) {
     return drinkDetailsData
 }    
 
-function ingredientsBuilder (data){
+function ingredientsListBuilder (data){
     let drinkIngredientsArray = []
     var ingredientVar
     let ingredient = ""
