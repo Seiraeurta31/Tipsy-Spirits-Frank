@@ -1,4 +1,4 @@
-import User from './models/user'
+import User from '../models/user'
 import dbConnect from '../connection'
 
 //CRUD for getting, creating, deleting drinks from "favorites"
@@ -21,6 +21,7 @@ export async function getAllFavoriteDrinks(userId) {
 //TODO: READ/GET single drink from favorites list by drink Id
 export async function getFavoriteDrinkById(userId, drinkId) {
 
+  console.log("Get Favorite TRIGGERED")
   //Start up database connection
   await dbConnect()
 
@@ -29,15 +30,16 @@ export async function getFavoriteDrinkById(userId, drinkId) {
   if (!user) return null
 
   //Check for drink by id, if none, return null, otherwise return drink
-  const drink = user.favoriteDrinks.find(drink => drink.id === drinkId)
+  const drink = user.favoriteDrinks.find(drink => drink.drinkId === drinkId)
   if (!drink)  
     return null
+
   return drink
 }
 
 
 //TODO: CREATE/ADD drink to favorites list
-export async function add(userId, drink) {
+export async function addFavoriteDrink(userId, drink) {
 
   //Start up database connection
   await dbConnect()
@@ -59,7 +61,7 @@ export async function add(userId, drink) {
 
 //TODO: DELETE/REMOVE book from Favorites list
 
-export async function remove(userId, drinkId) {
+export async function removeDrink(userId, drinkId) {
 
   //Start up database connection
   await dbConnect()

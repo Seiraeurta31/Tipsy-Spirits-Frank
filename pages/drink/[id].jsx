@@ -1,14 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from "next/router";
-import Link from 'next/link';
-import { useEffect } from 'react';
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../../config/session";
 import Header from '../../components/header';
 import styles from '../../styles/drink.module.css'
+import db from '../../db';
 import Image from 'next/image'
 import { getDrinkById } from '../../util/drinks'
-
 
 //GET session info from req AND single drink data from external API
 export const getServerSideProps = withIronSessionSsr( //iron sessions grabs session info and ads to req
@@ -16,6 +14,13 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
   
     const { user } = req.session
     const props = {}
+     //sets if book is a favorite or not
+
+    let favorite = false
+    const favoriteDrink = await db.drink.getFavoriteDrinkById(user._id, params.id)
+    if(favoriteDrink !== null){
+      favorite = true
+    } 
 
     //GET drink from API from util/drinks
     const drink = await getDrinkById(params.id)
@@ -23,6 +28,12 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
     //If drink was found save it to props
     if (drink)
       props.drink = drink
+
+   
+    //Search favorites list for drinkID to check if a favorite exists
+    
+
+    props.isFavorite = favorite
 
     props.isLoggedIn = !!user
     return { props }
@@ -37,14 +48,46 @@ export default function Drink( props) {
   const router = useRouter()
   const { isLoggedIn } = props
   const [drink] = props.drink // destructure out the drink from array prop
-
-  //ROUTE CALLS to ADD/ DELETE favorites from database: 
-
-         //ADD to favorites
+  const isFavorite = props.isFavorite //Favorite book
 
 
-         //REMOVE from favorites
 
+  //ROUTE CALLS from buttons to ADD/ DELETE favorites from database: 
+
+  //TODO: Add to favorites
+  async function addToFavorites(e) {
+    e.preventDefault()
+    const res = await fetch(`/api/book`, {
+      method: 'POST',
+      headers: 
+      {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(drink)
+    })
+    // Call router.replace(router.asPath) if you receive a 200 status
+    if (res.status === 200) {
+      router.replace(router.asPath)
+    }  
+  
+  }
+
+  //TODO: Remove from favorites
+  async function removeFromFavorites(e) {
+    const res = await fetch(`/api/drink`, {
+      method: 'DELETE',
+      headers: 
+      {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({id: drink.drinkId})
+    })
+    // Call router.replace(router.asPath) if you receive a 200 status
+    if (res.status === 200) {
+      router.replace(router.asPath)
+    }
+
+  }
 
   return (
     <>
@@ -66,7 +109,14 @@ export default function Drink( props) {
         instructions={drink.instructions}>
       </DrinkDetails>
 
-      <button onClick={() => router.back()} type="submit">Back</button>
+      {isFavorite  // Tests if drink is currently a favorite
+      //if its a favorite, show button to remove favorite
+      ? <button onClick={removeFromFavorites} type="submit">Back</button>
+      //if its NOT a favorite, show button to add to favorites
+      : <button onClick={addToFavorites} type="submit">Back</button>
+      }
+      
+      
     </>
   )
 }   
