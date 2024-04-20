@@ -76,7 +76,6 @@ export default function Search(props) {
     router.replace(router.pathname + `?n=${query}`) //n = name
   }
 
-
   return (
     <>
       <Head>

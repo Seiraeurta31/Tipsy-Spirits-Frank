@@ -79,8 +79,6 @@ function drinkDetailsFormatting (data) {
 
     const ingredientsList = ingredientsBuilder(data)
 
-    console.log("Ingredients List: ", ingredientsList)
-
     const drinkDetailsData = data.drinks.map((drink) => ({
         drinkId: drink.idDrink,
         name: drink.strDrink,
@@ -88,8 +86,6 @@ function drinkDetailsFormatting (data) {
         ingredients: ingredientsList,
         instructions: drink.strInstructions
     }))
-
-    console.log (drinkDetailsData[0].ingredients)
 
     return drinkDetailsData
 }    
@@ -104,10 +100,6 @@ function ingredientsBuilder (data){
         let ingredientVarString = `data.drinks[0].${ingredientstr}`
         ingredientVar = eval(ingredientVarString)
 
-        console.log("Ingredient String Name: ", ingredientVar)
-
-        console.log("Ingredient Value: ", ingredientVar)
-
         if(ingredientVar === null){
             break;
         }
@@ -116,14 +108,15 @@ function ingredientsBuilder (data){
         let measurementVarString = `data.drinks[0].${measurementStr}`
         var measurementVar = eval(measurementVarString)
 
-        ingredient = `${measurementVar} ${ingredientVar} `
-
-        console.log("Ingredient String: ", ingredient)
+        if(measurementVar === null){
+            ingredient = `${ingredientVar} `
+            
+        }else{
+            ingredient = `${measurementVar} ${ingredientVar} `
+        }
 
         drinkIngredientsArray.push(ingredient)
     }      
-
-    console.log("Drinks Array: ", drinkIngredientsArray)
 
     return drinkIngredientsArray
 

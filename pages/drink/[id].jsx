@@ -62,7 +62,8 @@ export default function Drink( props) {
         ingredients={drink.ingredients}
         instructions={drink.instructions}>
       </DrinkDetails>
-        
+      
+      <button onClick={() => router.back()} type="submit">Back</button>
     </>
   )
 }   
@@ -80,6 +81,7 @@ function DrinkDetails({name, image, ingredients, instructions}) {
             {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
           </ul>
           <p>{instructions}</p>
+          
           
         </div>
       </>
