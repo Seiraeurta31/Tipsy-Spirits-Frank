@@ -61,6 +61,7 @@ export default function Drink( props) {
         id={drink.drinkId} 
         name={drink.name} 
         image={drink.image}
+        alcoholic={drink.alcoholic}
         ingredients={drink.ingredients}
         instructions={drink.instructions}>
       </DrinkDetails>
@@ -70,22 +71,19 @@ export default function Drink( props) {
   )
 }   
 
-function DrinkDetails({name, image, ingredients, instructions}) {
+function DrinkDetails({name, image, alcoholic, ingredients, instructions}) {
 
     const noImage = "/No_image_available.svg.png"
 
     return (
       <>
-        <div className={styles.titleGroup}>
           <h1>{name}</h1>
+          <p>{alcoholic == "Alcoholic" ? "Alcoholic Drink" : "Non-Alcoholic Drink"}</p>
           <Image src={image ? image : noImage} width={556} height={370} alt={name} className={styles.recipeImg}/>
           <ul>
             {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
           </ul>
           <p>{instructions}</p>
-          
-          
-        </div>
       </>
     )
   }

@@ -76,6 +76,7 @@ function drinkDetailsData (data) {
         drinkId: drink.idDrink,
         name: drink.strDrink,
         image: drink.strDrinkThumb,
+        alcoholic: drink.strAlcoholic,
         ingredients: ingredientsList,
         instructions: drink.strInstructions
     }))

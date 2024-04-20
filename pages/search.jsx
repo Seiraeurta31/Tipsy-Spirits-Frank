@@ -109,14 +109,17 @@ export default function Search(props) {
         //If drins exist, render drink components with data
         drinks?.length
         ? <section className={styles.results}>
-          {drinks.map((drink, i) => (
-            <DrinkPreview 
-              key={i}
-              id={drink.drinkId} 
-              name={drink.name} 
-              image={drink.image}>
-            </DrinkPreview>
-          ))}
+          <div> 
+            {drinks.map((drink, i) => (
+              <DrinkPreview 
+                key={i}
+                id={drink.drinkId} 
+                name={drink.name} 
+                image={drink.image}>
+              </DrinkPreview>
+            ))}
+          </div>
+          
         </section>
         //If no drinks found, display message
         : <p className={styles.noResults}>No Drinks Found!</p>
@@ -132,10 +135,12 @@ export default function Search(props) {
 function DrinkPreview({id, name, image}) {
   const noImage = "/No_image_available.svg.png"
   return (
-    <Link href={'/drink/' + id} className={styles.preview}>
-      <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
-      <span>{name}</span>
-    </Link>
+      <Link href={'/drink/' + id} className={styles.preview}>
+        <h1>{name}</h1>
+        <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
+        <span></span>
+      </Link>
+    
   )
 }
 
