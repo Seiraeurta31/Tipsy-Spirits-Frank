@@ -81,6 +81,7 @@ export async function getDrinkById(drinkId) {
 
 function drinkDetailsFormatting (data) {
 
+    const ingredients = ingredientsBuilder(data)
 
     const drinkDetailsData = data.drinks.map((drink) => ({
         drinkId: drink.idDrink,
@@ -89,6 +90,37 @@ function drinkDetailsFormatting (data) {
         instructions: drink.strInstructions
     }))
 
-    console.log("data reformated: ", drinkDetailsData)
     return drinkDetailsData
 }    
+
+function ingredientsBuilder (data){
+
+    console.log("Data: ", data)
+    let drinkIngredientsArray = []
+    let ingredientName
+
+
+
+
+
+
+    
+    ingredientName = "strIngredient" + 1
+    let ingredientString = `data.drinks[0].${ingredientName}`
+
+    var myVar = eval(ingredientString)
+
+    console.log("My Var: ", myVar)
+
+    console.log("data ingredient: ", ingredientString)
+    
+    console.log("Ingredient Name: ", ingredientName)
+
+
+
+    // for (let i = 1; ingredient !=null; i++) {
+     
+   
+    // }
+
+}
