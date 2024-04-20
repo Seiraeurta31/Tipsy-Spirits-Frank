@@ -11,11 +11,11 @@ import Footer from "../components/footer";
 import { getDrinksByIngredient, getDrinksByName} from "../util/drinks"
 
 
-//Get session for the user/ /cocktail information from API
+//Get Request from server
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({req, query}) {
 
-    console.log("Get Request Triggered")
+    //GET user info from req
     const { user } = req.session
     const props = {}
     let searchedDrinks = []
@@ -25,16 +25,18 @@ export const getServerSideProps = withIronSessionSsr(
     }
     props.isLoggedIn = !!user
 
+    //If ingredient query exists, GET drinks by ingredient from external API
     if(query.i != undefined){
       searchedDrinks = await getDrinksByIngredient(query.i)
-      console.log ("drinks returned")
-      console.log ("searched drinks: ", searchedDrinks)
+
       if(searchedDrinks){
         props.drinks = searchedDrinks
-      }  
+      } 
+
       props.drinks = searchedDrinks
     }
 
+    //If name query exists, GET drinks by name from external API
     if(query.n != undefined){
       searchedDrinks = await getDrinksByName(query.n) 
       if(searchedDrinks){
@@ -42,7 +44,6 @@ export const getServerSideProps = withIronSessionSsr(
       }  
     }
       
-
     return { props }
 
   },
@@ -50,36 +51,31 @@ export const getServerSideProps = withIronSessionSsr(
 );
 
 
+//FrontEnd SEARCH page HTML with helper functions
 export default function Search(props) {
   const router = useRouter()
   const inputRef = useRef()
   const inputDivRef = useRef()
   const [query, setQuery] = useState("")
-  // const [drinks, setDrinks] = useState(props.drinks)
+  const drinks = props.drinks //an array of drinks
 
 
-  // Handler for form submission to refresh URL with ingredient query
+  // Handler for ingredient form submission to refresh URL with ingredient query
   async function searchByIngredient(e) {
     e.preventDefault()
     if (!query.trim()) return 
-    // const drinksByIngredient = await getDrinksByIngredient(query) 
-    // setDrinks(drinksByIngredient)
+
     router.replace(router.pathname + `?i=${query}`)  //i = ingredient
   }
 
+  // Handler for name form submission to refresh URL with name query
   async function searchByName(e) {
     e.preventDefault()
     if (!query.trim()) return
-    // const drinksByName = await getDrinksByName(query)
-    // setDrinks(drinksByName)
+
     router.replace(router.pathname + `?n=${query}`) //n = name
   }
 
-  // if(props.drinks) {
-  //   setDrinks(props.drinks)
-  // }  
-
-  console.log ("page refreshed")
 
   return (
     <>
@@ -109,12 +105,12 @@ export default function Search(props) {
             <button onClick={searchByName} type="submit">Search By Name</button>
           </div>
         </form>
-      
+    
       {
-        props.drinks?.length
+        //If drins exist, render drink components with data
+        drinks?.length
         ? <section className={styles.results}>
-          {/* TODO: Render recipes with RecipePreview Component */}
-          {props.drinks.map((drink, i) => (
+          {drinks.map((drink, i) => (
             <DrinkPreview 
               key={i}
               id={drink.drinkId} 
@@ -123,6 +119,7 @@ export default function Search(props) {
             </DrinkPreview>
           ))}
         </section>
+        //If no drinks found, display message
         : <p className={styles.noResults}>No Drinks Found!</p>
       }
       </main>

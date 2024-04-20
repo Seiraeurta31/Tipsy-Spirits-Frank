@@ -32,23 +32,16 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
 // TODO: Display details of drink from API 
 export default function Drink( props) {
 
-  
-  console.log ("props.drink ", props.drink)
-
   const router = useRouter()
   const { isLoggedIn } = props
-  const drink = props.drink
+  const [drink] = props.drink // destructure out the drink from array prop
 
-  console.log("Props.drink: ", props.drink)
-  console.log("Drink Name: ", drink.name)
+  //ROUTE CALLS to ADD/ DELETE favorites from database: 
 
-  //ROUTE CALLS: 
-  
-  // No drink from search/context or getServerSideProps/favorites, redirect to Homepage
-  useEffect(() => {
-    if (!drink)
-      router.push('/')
-  }) 
+         //ADD to favorites
+
+
+         //REMOVE from favorites
 
 
   return (
@@ -61,15 +54,14 @@ export default function Drink( props) {
       </Head>
       <Header isLoggedIn={isLoggedIn} />
       
-      {props.drink.map((drink, i) => (
-            <DrinkDetails 
-              key={i}
-              id={drink.drinkId} 
-              name={drink.name} 
-              image={drink.image}
-              instructions={drink.instructions}>
-            </DrinkDetails>
-          ))}
+      
+      <DrinkDetails 
+        id={drink.drinkId} 
+        name={drink.name} 
+        image={drink.image}
+        instructions={drink.instructions}>
+      </DrinkDetails>
+        
     </>
   )
 }   

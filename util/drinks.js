@@ -1,13 +1,32 @@
 
-// Helper functions to get data for cocktails from external API on server side (to protect API key)
+//--------Page of HELPER functions to get data from external API -------
 
-
-//Drinks searched by ingredient
+//GET drinks by ingredient
 export async function getDrinksByIngredient(ingredient) {
     console.log("ingredient search triggered")
     const res = await fetch(
       `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/filter.php?i=${ingredient}` //TO DO: Put this call in a UTIL folder (server side)
     )
+    
+    const drinksByIngredient = processDrinkData(res)
+
+    return drinksByIngredient
+} 
+
+//GET drinks by name
+export async function getDrinksByName(name) {
+    const res = await fetch(
+        `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${name}` //TO DO: Put this call in a UTIL folder (server side)
+    )
+
+    //Isolate necessary data into new array of drink objects 
+    const drinksByName = processDrinkData(res)
+  
+    return drinksByName 
+}
+
+
+async function processDrinkData(res) {
     if (res.status !== 200) 
         return null
 
@@ -16,28 +35,25 @@ export async function getDrinksByIngredient(ingredient) {
     if(data.drinks == 'None Found')
         return null
     
-    const drinksByIngredient = drinkPreviewFormatting(data)
-    console.log("Drinks by Ingredient: ", drinksByIngredient)
-    return drinksByIngredient
-} 
+    //Isolate necessary data into new array of drink objects  
+    const formattedData = drinkPreviewFormatting(data)
 
-//Drinks searched by name
-export async function getDrinksByName(name) {
-    const res = await fetch(
-        `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${name}` //TO DO: Put this call in a UTIL folder (server side)
-    )
-    if (res.status !== 200) 
-        return null
-
-    const data = await res.json()
-
-    if(data.drinks == 'None Found')
-        return null
-
-    const drinksByName = drinkPreviewFormatting(data)
-  
-    return drinksByName 
+    return formattedData
 }
+
+
+// Formatting cocktail drink info to match future favorite drink schema model  
+function drinkPreviewFormatting (data) {
+    const drinkPreviewData = data.drinks.map((drink) => ({
+        drinkId: drink.idDrink,
+        name: drink.strDrink,
+        image: drink.strDrinkThumb
+    }))
+
+    return drinkPreviewData
+}
+
+
 
 //Drinks searched by drinkId
 export async function getDrinkById(drinkId) {
@@ -63,19 +79,8 @@ export async function getDrinkById(drinkId) {
     return drinksById
 }
 
-
-// Formatting cocktail drink info to match future favorite drink schema model  
-function drinkPreviewFormatting (data) {
-    const drinkPreviewData = data.drinks.map((drink) => ({
-        drinkId: drink.idDrink,
-        name: drink.strDrink,
-        image: drink.strDrinkThumb
-    }))
-
-    return drinkPreviewData
-}
-
 function drinkDetailsFormatting (data) {
+
 
     const drinkDetailsData = data.drinks.map((drink) => ({
         drinkId: drink.idDrink,
