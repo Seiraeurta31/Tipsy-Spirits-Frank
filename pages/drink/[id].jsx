@@ -17,7 +17,7 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
      //sets if book is a favorite or not
 
     let favorite = false
-    const favoriteDrink = await db.drink.getFavoriteDrinkById(user._id, params.id)
+    const favoriteDrink = await db.controllers.drink.getFavoriteDrinkById(user._id, params.id)
     if(favoriteDrink !== null){
       favorite = true
     } 
@@ -57,7 +57,7 @@ export default function Drink( props) {
   //TODO: Add to favorites
   async function addToFavorites(e) {
     e.preventDefault()
-    const res = await fetch(`/api/book`, {
+    const res = await fetch(`/api/drink`, {
       method: 'POST',
       headers: 
       {
@@ -72,22 +72,6 @@ export default function Drink( props) {
   
   }
 
-  //TODO: Remove from favorites
-  async function removeFromFavorites(e) {
-    const res = await fetch(`/api/drink`, {
-      method: 'DELETE',
-      headers: 
-      {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({id: drink.drinkId})
-    })
-    // Call router.replace(router.asPath) if you receive a 200 status
-    if (res.status === 200) {
-      router.replace(router.asPath)
-    }
-
-  }
 
   return (
     <>
