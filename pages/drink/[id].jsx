@@ -13,7 +13,6 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
   async function getServerSideProps({ req, params }) {
 
     const { user } = req.session 
-    console.log("User Info: ", user)
 
     const props = {}
 
@@ -35,8 +34,9 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
       console.log("Favorite Drink: ", favoriteDrink)
       
       if(favoriteDrink !== null){
+        drink[0] = favoriteDrink
         isFavorite = true
-      } 
+      }
     }  
 
     console.log("Favorite value: ", isFavorite)
@@ -94,7 +94,7 @@ export default function Drink( props) {
       {
         "content-type": "application/json",
       },
-      body: JSON.stringify({id: drink.id})
+      body: JSON.stringify(drink)
     })
     // Call router.replace(router.asPath) if you receive a 200 status
     if (res.status === 200) {

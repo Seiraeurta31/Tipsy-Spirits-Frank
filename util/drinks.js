@@ -49,7 +49,6 @@ async function drinkPreviewData(res) {
 //GET drinks by id from drinks/[id]
 export async function getDrinkById(drinkId) {
 
-    console.log ("drink ID: ", drinkId)
     const res = await fetch(
         `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/lookup.php?i=${drinkId}` //TO DO: Put this call in a UTIL folder (server side)
     )

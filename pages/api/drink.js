@@ -28,6 +28,19 @@ export default withIronSessionApiRoute(
         }catch(error){
           return res.status(400).json({error: error.message})
         }
+      case 'DELETE': 
+      try{
+        console.log("DELETE TRIGGERED")
+        const drinkToRemove = req.body
+        const deletedBook = await db.drink.removeFavoriteDrink(userId, drinkToRemove.id)
+        if(deletedBook == null){
+          req.session.destroy()
+          return res.status(401)
+        }
+        return res.status(200).json(deletedBook)
+      }catch(error){
+        return res.status(400).json({error: error.message})
+      }
 
       // 
       default: 

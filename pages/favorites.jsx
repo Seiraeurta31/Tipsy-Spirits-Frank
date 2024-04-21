@@ -61,7 +61,7 @@ export default function Favorites(props) {
       
         {
         //If drins exist, render drink components with data
-        props.allDrinks
+        props.allDrinks.length
         ? <section className={styles.results}>
             <div> 
               {props.allDrinks.map((drink, i) => (
