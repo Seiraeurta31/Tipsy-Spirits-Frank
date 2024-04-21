@@ -13,11 +13,14 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
   async function getServerSideProps({ req, params }) {
   
     const { user } = req.session
+
+    console.log("User Info: ", user)
     const props = {}
      //sets if book is a favorite or not
 
     let favorite = false
     const favoriteDrink = await db.drink.getFavoriteDrinkById(user._id, params.id)
+
     if(favoriteDrink !== null){
       favorite = true
     } 
