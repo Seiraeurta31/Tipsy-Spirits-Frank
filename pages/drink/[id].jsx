@@ -17,7 +17,7 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
      //sets if book is a favorite or not
 
     let favorite = false
-    const favoriteDrink = await db.controllers.drink.getFavoriteDrinkById(user._id, params.id)
+    const favoriteDrink = await db.drink.getFavoriteDrinkById(user._id, params.id)
     if(favoriteDrink !== null){
       favorite = true
     } 
