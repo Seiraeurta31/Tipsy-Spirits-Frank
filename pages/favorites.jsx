@@ -7,6 +7,7 @@ import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import db from '../db'
 import useLogout from "../hooks/useLogout";
 
 export const getServerSideProps = withIronSessionSsr(
@@ -19,14 +20,20 @@ export const getServerSideProps = withIronSessionSsr(
     } else {
       props.isLoggedIn = false;
     }
+
+    const allDrinks = await db.drink.getAllFavoriteDrinks(user._id)
+    props.allDrinks = allDrinks
+
     return { props };
   },
   sessionOptions
 );
 
-export default function Dashboard(props) {
+export default function Favorites(props) {
   const router = useRouter();
   const logout = useLogout();
+  const drinks = props.allDrinks
+
   return (
     <div className={styles.container}>
       <Head>
@@ -46,12 +53,26 @@ export default function Dashboard(props) {
             <h2>Search for a drink</h2>
           </Link>
         </div>
-        <div>
-          <p>Favorite</p>
-          <p>Favorite</p>
-          <p>Favorite</p>
-          <p>Favorite</p>
-        </div>
+      
+        {
+        //If drins exist, render drink components with data
+        drinks?.length
+        ? <section className={styles.results}>
+          <div> 
+            {drinks.map((drink, i) => (
+              <FavoriteDrink 
+                key={i}
+                id={drink.favoritesId} 
+                name={drink.name} 
+                image={drink.image}>
+              </FavoriteDrink>
+            ))}
+          </div>
+          
+        </section>
+        //If no drinks found, display message
+        : <p className={styles.noResults}>No Drinks Found!</p>
+      }
 
         <div className={styles.grid}>
           <Link href="/" className={styles.card}>
@@ -71,4 +92,17 @@ export default function Dashboard(props) {
        
     </div>
   );
+}
+
+
+function FavoriteDrink({id, name, image}) {
+  const noImage = "/No_image_available.svg.png"
+  return (
+      <Link href={'/drink/' + id} className={styles.preview}>
+        <h1>{name}</h1>
+        <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
+        <span></span>
+      </Link>
+    
+  )
 }

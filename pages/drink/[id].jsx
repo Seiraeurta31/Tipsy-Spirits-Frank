@@ -5,6 +5,7 @@ import sessionOptions from "../../config/session";
 import Header from '../../components/header';
 import styles from '../../styles/drink.module.css'
 import Image from 'next/image'
+import db from '../../db'
 import { getDrinkById } from '../../util/drinks'
 
 //GET session info from req AND single drink data from external API
@@ -16,16 +17,19 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
     console.log("User Info: ", user)
     const props = {}
      //sets if book is a favorite or not
-    //  if (user) {
-    //   props.user = req.session.user;
-    //   let favorite = false
-    //   const favoriteDrink = await getFavoriteDrinkById(req.session.user._id, params.id)
-    //   if(favoriteDrink !== null){
-    //     favorite = true
-    //   } 
-    // }
+     if (user) {
+      props.user = req.session.user
+      let favorite = false
+      const favoriteDrink = await db.drink.getFavoriteDrinkById(req.session.user._id, params.id)
+      
+      console.log("Favorite Drink: ", favoriteDrink)
+      console.log("Favorite: ", favorite)
+      
+      if(favoriteDrink !== null){
+        favorite = true
+      } 
+    }
     
-
 
     //GET drink from API from util/drinks
     const drink = await getDrinkById(params.id)
@@ -37,8 +41,6 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
    
     //Search favorites list for drinkID to check if a favorite exists
     
-
-    // props.isFavorite = favorite
 
     props.isLoggedIn = !!user
     return { props }
