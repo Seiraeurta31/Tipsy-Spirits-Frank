@@ -67,7 +67,7 @@ export default function Favorites(props) {
               {props.allDrinks.map((drink, i) => (
                 <FavoriteDrink 
                   key={i}
-                  id={drink.favoriteId} 
+                  id={drink.cocktailDbId} 
                   name={drink.name} 
                   image={drink.image}>
                 </FavoriteDrink>

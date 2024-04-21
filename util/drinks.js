@@ -36,7 +36,7 @@ async function drinkPreviewData(res) {
     
     //Assign keys to data   
     const drinkData = data.drinks.map((drink) => ({
-        drinkId: drink.idDrink,
+        cocktailDbId: drink.idDrink,
         name: drink.strDrink,
         image: drink.strDrinkThumb
     }))
@@ -73,7 +73,7 @@ function drinkDetailsData (data) {
     const ingredientsList = ingredientsListBuilder(data)
 
     const drinkDetailsData = data.drinks.map((drink) => ({
-        drinkId: drink.idDrink,
+        cocktailDbId: drink.idDrink,
         name: drink.strDrink,
         image: drink.strDrinkThumb,
         alcoholic: drink.strAlcoholic,

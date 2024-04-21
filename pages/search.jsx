@@ -113,7 +113,7 @@ export default function Search(props) {
             {drinks.map((drink, i) => (
               <DrinkPreview 
                 key={i}
-                id={drink.drinkId} 
+                id={drink.cocktailDbId} 
                 name={drink.name} 
                 image={drink.image}>
               </DrinkPreview>

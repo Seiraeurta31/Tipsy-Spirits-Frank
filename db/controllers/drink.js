@@ -23,6 +23,7 @@ export async function getAllFavoriteDrinks(userId) {
 export async function getFavoriteDrinkById(userId, drinkId) {
 
   console.log("Get single Favorite TRIGGERED")
+  console.log("Get favorite drink by Id ID:", drinkId)
   //Start up database connection
   await dbConnect()
 

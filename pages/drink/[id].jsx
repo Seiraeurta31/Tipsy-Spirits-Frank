@@ -15,6 +15,7 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
     const { user } = req.session
 
     console.log("User Info: ", user)
+    console.log("Params ID for details page: ", params.id)
     const props = {}
      //sets if book is a favorite or not
      if (user) {
@@ -33,6 +34,8 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
 
     //GET drink from API from util/drinks
     const drink = await getDrinkById(params.id)
+
+    console.log("Drink: ", drink)
 
     //If drink was found save it to props
     if (drink)
@@ -55,7 +58,7 @@ export default function Drink( props) {
   const router = useRouter()
   const { isLoggedIn } = props
   const [drink] = props.drink // destructure out the drink from array prop
-  const isFavorite = props.isFavorite //Favorite book
+  // const isFavorite = props.isFavorite //Favorite book
 
   console.log("Drink: ", drink)
 
@@ -92,7 +95,7 @@ export default function Drink( props) {
       
       
       <DrinkDetails 
-        id={drink.drinkId} 
+        cocktailDbId={drink.cocktailDbId} 
         name={drink.name} 
         image={drink.image}
         alcoholic={drink.alcoholic}
