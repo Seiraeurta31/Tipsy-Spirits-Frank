@@ -11,40 +11,41 @@ import { getDrinkById } from '../../util/drinks'
 //GET session info from req AND single drink data from external API
 export const getServerSideProps = withIronSessionSsr( //iron sessions grabs session info and ads to req
   async function getServerSideProps({ req, params }) {
-  
-    const { user } = req.session
 
+    const { user } = req.session 
     console.log("User Info: ", user)
-    console.log("Params ID for details page: ", params.id)
+
     const props = {}
-     //sets if book is a favorite or not
-     if (user) {
+
+    if (user) {
       props.user = req.session.user
-      let favorite = false
+    }
+
+    console.log("Params ID for details page: ", params.id)
+    const drink = await getDrinkById(params.id)  //Drink from cocktial DB API
+    console.log("Drink: ", drink)
+
+    let isFavorite = false
+    
+    //Check if drink is a favorite drink
+    if (user) {
+      props.user = req.session.user
       const favoriteDrink = await db.drink.getFavoriteDrinkById(req.session.user._id, params.id)
       
       console.log("Favorite Drink: ", favoriteDrink)
-      console.log("Favorite: ", favorite)
       
       if(favoriteDrink !== null){
-        favorite = true
+        isFavorite = true
       } 
-    }
-    
+    }  
 
-    //GET drink from API from util/drinks
-    const drink = await getDrinkById(params.id)
-
-    console.log("Drink: ", drink)
+    console.log("Favorite value: ", isFavorite)
 
     //If drink was found save it to props
     if (drink)
-      props.drink = drink
+    props.drink = drink
 
-   
-    //Search favorites list for drinkID to check if a favorite exists
-    
-
+    props.favorite = isFavorite
     props.isLoggedIn = !!user
     return { props }
   },
@@ -58,9 +59,12 @@ export default function Drink( props) {
   const router = useRouter()
   const { isLoggedIn } = props
   const [drink] = props.drink // destructure out the drink from array prop
-  // const isFavorite = props.isFavorite //Favorite book
+  console.log("Drink: ", drink) //validate drink exists
 
-  console.log("Drink: ", drink)
+  // const isFavorite = props.isFavorite //Favorite book
+  let favorite = props.favorite
+
+
 
   //ROUTE CALLS from buttons to ADD/ DELETE favorites from database: 
 
@@ -81,6 +85,25 @@ export default function Drink( props) {
     }  
   
   }
+
+  async function removeFromFavorites(e) {
+    e.preventDefault()
+    const res = await fetch(`/api/drink`, {
+      method: 'DELETE',
+      headers: 
+      {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({id: drink.id})
+    })
+    // Call router.replace(router.asPath) if you receive a 200 status
+    if (res.status === 200) {
+      router.replace(router.asPath)
+    }  
+  
+  }
+
+
 
 
   return (
@@ -103,13 +126,12 @@ export default function Drink( props) {
         instructions={drink.instructions}>
       </DrinkDetails>
 
-      {/* {isFavorite  // Tests if drink is currently a favorite
+      {favorite  // Tests if drink is currently a favorite
       //if its a favorite, show button to remove favorite
-      ? <button onClick={removeFromFavorites} type="submit">Back</button>
+      ? <button onClick={removeFromFavorites} type="submit">Remove from favorites</button>
       //if its NOT a favorite, show button to add to favorites
-      : <button onClick={addToFavorites} type="submit">Back</button>
-      } */}
-      <button onClick={addToFavorites} type="submit">Add To Favorites</button>
+      : <button onClick={addToFavorites} type="submit">Add to Favorites</button>
+      }
       <button onClick={() => router.back()} type="submit">Back</button>
       
     </>

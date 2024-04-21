@@ -32,11 +32,12 @@ export async function getFavoriteDrinkById(userId, drinkId) {
   if (!user) return null
 
   //Check for drink by id, if none, return null, otherwise return drink
-  const drinkFound = user.favoriteDrinks.find(drink => drink.drinkId === drinkId)
-  if (!drinkFound)  
-    return null
+  const drinkFound = user.favoriteDrinks.find(fav => fav.cocktailDbId === drinkId)
 
-  return convertDrinkIdToString(drinkFound)
+  console.log("Drink Found value: ", drinkFound)
+
+  if (drinkFound) return convertDrinkIdToString(drinkFound)
+  return null
 }
 
 
@@ -44,6 +45,7 @@ export async function getFavoriteDrinkById(userId, drinkId) {
 export async function addFavoriteDrink(userId, drink) {
 
   console.log("Add to favorites TRIGGERED")
+  console.log("Drink to add: ", drink)
 
   //Start up database connection
   await dbConnect()
@@ -58,7 +60,9 @@ export async function addFavoriteDrink(userId, drink) {
   if (!user) return null
 
   //If user exists, confirm new drink was added by searching for drink in favorites by id and returning new drink
-  const addedDrink = user.favoriteDrinks.find(newDrink => newDrink.id === drink.id) 
+  const addedDrink = user.favoriteDrinks.find(fav => fav.cocktailDbId == drink.cocktailDbId) 
+
+  console.log("Added Drink: ", addedDrink)
   return convertDrinkIdToString(addedDrink)
 }
 

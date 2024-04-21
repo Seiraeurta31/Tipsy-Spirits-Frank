@@ -25,7 +25,7 @@ export const getServerSideProps = withIronSessionSsr(
     
     console.log("All Favorites: ", allDrinks)
     
-    if(allDrinks.length > 0){
+    if(allDrinks){
       props.allDrinks = allDrinks
     }
       

@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
 
 const drinkSchema = new Schema({
-  cocktailDbId: Number,
+  cocktailDbId: String,
   name: String,
   image: String,
   // alcoholic: String,
