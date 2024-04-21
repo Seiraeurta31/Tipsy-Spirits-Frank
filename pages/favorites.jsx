@@ -21,8 +21,14 @@ export const getServerSideProps = withIronSessionSsr(
       props.isLoggedIn = false;
     }
 
-    const allDrinks = await db.drink.getAllFavoriteDrinks(user._id)
-    props.allDrinks = allDrinks
+    const allDrinks = await db.drink.getAllFavoriteDrinks(req.session.user._id)
+    
+    console.log("All Favorites: ", allDrinks)
+    
+    if(allDrinks.length > 0){
+      props.allDrinks = allDrinks
+    }
+      
 
     return { props };
   },
@@ -32,7 +38,6 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Favorites(props) {
   const router = useRouter();
   const logout = useLogout();
-  const drinks = props.allDrinks
 
   return (
     <div className={styles.container}>
@@ -56,22 +61,21 @@ export default function Favorites(props) {
       
         {
         //If drins exist, render drink components with data
-        drinks?.length
+        props.allDrinks
         ? <section className={styles.results}>
-          <div> 
-            {drinks.map((drink, i) => (
-              <FavoriteDrink 
-                key={i}
-                id={drink.favoritesId} 
-                name={drink.name} 
-                image={drink.image}>
-              </FavoriteDrink>
-            ))}
-          </div>
-          
-        </section>
+            <div> 
+              {props.allDrinks.map((drink, i) => (
+                <FavoriteDrink 
+                  key={i}
+                  id={drink.favoriteId} 
+                  name={drink.name} 
+                  image={drink.image}>
+                </FavoriteDrink>
+              ))}
+            </div>
+          </section>
         //If no drinks found, display message
-        : <p className={styles.noResults}>No Drinks Found!</p>
+        : <p className={styles.noResults}>No favorite drinks</p>
       }
 
         <div className={styles.grid}>

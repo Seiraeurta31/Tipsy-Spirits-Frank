@@ -8,20 +8,21 @@ import dbConnect from '../connection'
 //TODO: READ/GET ALL drinks in favorites list
 export async function getAllFavoriteDrinks(userId) {
 
+  console.log("Get All favorites TRIGGERED")
   //Start up database connection
   await dbConnect()
   
   //Check for user, if none, return null, otherwise proceed to return all favorite drinks under user.
   const user = await User.findById(userId).lean()
   if (!user) return null
-  return user.favoriteDrinks
+  return user.favoriteDrinks.map(drink=> normalizeId(drink))
 }
 
 
 //TODO: READ/GET single drink from favorites list by drink Id
 export async function getFavoriteDrinkById(userId, drinkId) {
 
-  console.log("Get Favorite TRIGGERED")
+  console.log("Get single Favorite TRIGGERED")
   //Start up database connection
   await dbConnect()
 
@@ -30,16 +31,18 @@ export async function getFavoriteDrinkById(userId, drinkId) {
   if (!user) return null
 
   //Check for drink by id, if none, return null, otherwise return drink
-  const drink = user.favoriteDrinks.find(drink => drink.drinkId === drinkId)
-  if (!drink)  
+  const drinkFound = user.favoriteDrinks.find(drink => drink.drinkId === drinkId)
+  if (!drinkFound)  
     return null
 
-  return drink
+  return normalizeId(drinkFound)
 }
 
 
 //TODO: CREATE/ADD drink to favorites list
 export async function addFavoriteDrink(userId, drink) {
+
+  console.log("Add to favorites TRIGGERED")
 
   //Start up database connection
   await dbConnect()
@@ -55,13 +58,13 @@ export async function addFavoriteDrink(userId, drink) {
 
   //If user exists, confirm new drink was added by searching for drink in favorites by id and returning new drink
   const addedDrink = user.favoriteDrinks.find(newDrink => newDrink.id === drink.id) 
-  return addedDrink
+  return normalizeId(addedDrink)
 }
 
 
 //TODO: DELETE/REMOVE book from Favorites list
 
-export async function removeDrink(userId, drinkId) {
+export async function removeFavoriteDrink(userId, drinkId) {
 
   //Start up database connection
   await dbConnect()
@@ -75,4 +78,9 @@ export async function removeDrink(userId, drinkId) {
   //If user does not exists, return null, otherwise return true for successful deletion
   if (!user) return null
   return true
+}
+
+export function normalizeId({_id, ...otherProperties}) {
+  const id = _id.toString()
+  return { ...otherProperties, id }
 }

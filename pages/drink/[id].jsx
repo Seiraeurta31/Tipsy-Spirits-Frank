@@ -57,7 +57,7 @@ export default function Drink( props) {
   const [drink] = props.drink // destructure out the drink from array prop
   const isFavorite = props.isFavorite //Favorite book
 
-
+  console.log("Drink: ", drink)
 
   //ROUTE CALLS from buttons to ADD/ DELETE favorites from database: 
 

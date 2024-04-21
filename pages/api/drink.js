@@ -17,8 +17,9 @@ export default withIronSessionApiRoute(
       
       case 'POST': 
         try{
+          console.log("POST TRIGGERED")
           const drinkToAdd = req.body
-          const addedDrink= await db.book.add(userId, drinkToAdd)
+          const addedDrink= await db.drink.addFavoriteDrink(userId, drinkToAdd)
           if(addedDrink == null){
             req.session.destroy()  //incase was able to get in but no info so destroy user
             return res.status(401)
