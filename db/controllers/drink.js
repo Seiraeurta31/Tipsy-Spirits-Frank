@@ -15,7 +15,7 @@ export async function getAllFavoriteDrinks(userId) {
   //Check for user, if none, return null, otherwise proceed to return all favorite drinks under user.
   const user = await User.findById(userId).lean()
   if (!user) return null
-  return user.favoriteDrinks.map(drink=> normalizeId(drink))
+  return user.favoriteDrinks.map(drink=> convertDrinkIdToString(drink))
 }
 
 
@@ -35,7 +35,7 @@ export async function getFavoriteDrinkById(userId, drinkId) {
   if (!drinkFound)  
     return null
 
-  return normalizeId(drinkFound)
+  return convertDrinkIdToString(drinkFound)
 }
 
 
@@ -58,7 +58,7 @@ export async function addFavoriteDrink(userId, drink) {
 
   //If user exists, confirm new drink was added by searching for drink in favorites by id and returning new drink
   const addedDrink = user.favoriteDrinks.find(newDrink => newDrink.id === drink.id) 
-  return normalizeId(addedDrink)
+  return convertDrinkIdToString(addedDrink)
 }
 
 
@@ -80,7 +80,7 @@ export async function removeFavoriteDrink(userId, drinkId) {
   return true
 }
 
-export function normalizeId({_id, ...otherProperties}) {
+export function convertDrinkIdToString({_id, ...otherProperties}) {
   const id = _id.toString()
   return { ...otherProperties, id }
 }
