@@ -94,8 +94,9 @@ export default function Drink( props) {
       {
         "content-type": "application/json",
       },
-      body: JSON.stringify(drink)
+      body: JSON.stringify({id: drink.id})
     })
+    console.log("Deleted drink ID response: ", res)
     // Call router.replace(router.asPath) if you receive a 200 status
     if (res.status === 200) {
       router.replace(router.asPath)

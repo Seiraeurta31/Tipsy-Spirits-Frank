@@ -77,7 +77,7 @@ export async function removeFavoriteDrink(userId, drinkId) {
   //If user exists, find drink in Favorites by ID and remove it
   const user = await User.findByIdAndUpdate(
     userId,
-    { $pull: { favoriteDrinks: {id: drinkId } } },
+    { $pull: { favoriteDrinks: {_id: drinkId } } },
     { new: true }
   )
   //If user does not exists, return null, otherwise return true for successful deletion

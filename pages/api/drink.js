@@ -32,12 +32,13 @@ export default withIronSessionApiRoute(
       try{
         console.log("DELETE TRIGGERED")
         const drinkToRemove = req.body
-        const deletedBook = await db.drink.removeFavoriteDrink(userId, drinkToRemove.id)
-        if(deletedBook == null){
+        const deletedDrink = await db.drink.removeFavoriteDrink(userId, drinkToRemove.id)
+        if(deletedDrink == null){
           req.session.destroy()
           return res.status(401)
         }
-        return res.status(200).json(deletedBook)
+        console.log("Deleted drink response: ", deletedDrink)
+        return res.status(200).json(deletedDrink)
       }catch(error){
         return res.status(400).json({error: error.message})
       }
