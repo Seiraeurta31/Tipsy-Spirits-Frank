@@ -53,7 +53,7 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
 );
 
 
-// TODO: Display details of drink from API 
+// Display details of drink from API 
 export default function Drink( props) {
 
   const router = useRouter()
@@ -68,7 +68,7 @@ export default function Drink( props) {
 
   //ROUTE CALLS from buttons to ADD/ DELETE favorites from database: 
 
-  //TODO: Add to favorites
+  //Add to favorites
   async function addToFavorites(e) {
     e.preventDefault()
     const res = await fetch(`/api/drink`, {

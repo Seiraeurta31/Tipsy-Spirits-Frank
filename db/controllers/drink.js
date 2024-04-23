@@ -5,7 +5,7 @@ import dbConnect from '../connection'
 
 
 
-//TODO: READ/GET ALL drinks in favorites list
+//READ/GET ALL drinks in favorites list
 export async function getAllFavoriteDrinks(userId) {
 
   console.log("Get All favorites TRIGGERED")
@@ -19,7 +19,7 @@ export async function getAllFavoriteDrinks(userId) {
 }
 
 
-//TODO: READ/GET single drink from favorites list by drink Id
+//READ/GET single drink from favorites list by drink Id
 export async function getFavoriteDrinkById(userId, drinkId) {
 
   console.log("Get single Favorite TRIGGERED")
@@ -41,7 +41,7 @@ export async function getFavoriteDrinkById(userId, drinkId) {
 }
 
 
-//TODO: CREATE/ADD drink to favorites list
+//CREATE/ADD drink to favorites list
 export async function addFavoriteDrink(userId, drink) {
 
   console.log("Add to favorites TRIGGERED")
@@ -67,7 +67,7 @@ export async function addFavoriteDrink(userId, drink) {
 }
 
 
-//TODO: DELETE/REMOVE book from Favorites list
+//DELETE/REMOVE book from Favorites list
 
 export async function removeFavoriteDrink(userId, drinkId) {
 

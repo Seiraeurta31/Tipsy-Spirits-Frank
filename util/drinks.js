@@ -4,7 +4,7 @@
 //GET drinks by ingredient
 export async function getDrinksByIngredient(ingredient) {
     const res = await fetch(
-      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/filter.php?i=${ingredient}` //TO DO: Put this call in a UTIL folder (server side)
+      `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/filter.php?i=${ingredient}` 
     )
     //Reassign API data KEY's to readable terms
     const drinksByIngredient = drinkPreviewData(res)
@@ -14,11 +14,53 @@ export async function getDrinksByIngredient(ingredient) {
 //GET drinks by name
 export async function getDrinksByName(name) {
     const res = await fetch(
-        `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${name}` //TO DO: Put this call in a UTIL folder (server side)
+        `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/search.php?s=${name}` 
     )
     //Reassign API data KEY's to readable terms
     const drinksByName = drinkPreviewData(res)
     return drinksByName 
+}
+
+
+//GET drinks by id from drinks/[id]
+export async function getDrinkById(drinkId) {
+
+    const res = await fetch(
+        `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/lookup.php?i=${drinkId}` 
+    )
+    if (res.status !== 200) 
+        return null
+
+    const data = await res.json()
+
+    if(data.drinks == 'None Found')
+        return null
+
+    //Reassign API data KEY's to readable terms
+    const drinksById = drinkDetailsData(data)
+
+    return drinksById
+}
+
+
+//GET drinks by id from drinks/[id]
+export async function getRandomDrink(drinkId) {
+
+    const res = await fetch(
+        `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/random.php` 
+    )
+    if (res.status !== 200) 
+        return null
+
+    const data = await res.json()
+
+    if(data.drinks == 'None Found')
+        return null
+
+    //Reassign API data KEY's to readable terms
+    const randomDrink = drinkDetailsData(data)
+
+    return randomDrink
 }
 
 
@@ -42,27 +84,6 @@ async function drinkPreviewData(res) {
     }))
 
     return drinkData
-}
-
-
-
-//GET drinks by id from drinks/[id]
-export async function getDrinkById(drinkId) {
-
-    const res = await fetch(
-        `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/lookup.php?i=${drinkId}` //TO DO: Put this call in a UTIL folder (server side)
-    )
-    if (res.status !== 200) 
-        return null
-
-    const data = await res.json()
-
-    if(data.drinks == 'None Found')
-        return null
-
-    const drinksById = drinkDetailsData(data)
-
-    return drinksById
 }
 
 
