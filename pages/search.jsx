@@ -88,8 +88,8 @@ export default function Search(props) {
       <Header isLoggedIn={props.isLoggedIn} />
 
       <main>
-        <h1 className={styles.title}>Drink Search</h1>
-        <form className={styles.form}>
+        <h1>Drink Search</h1>
+        <form>
           <label htmlFor="drink-search">Search for Drink:</label>
           <div ref={inputDivRef}>
             <input
@@ -108,7 +108,7 @@ export default function Search(props) {
       {
         //If drins exist, render drink components with data
         drinks?.length
-        ? <section className={styles.results}>
+        ? <section>
           <div> 
             {drinks.map((drink, i) => (
               <DrinkPreview 
@@ -122,7 +122,7 @@ export default function Search(props) {
           
         </section>
         //If no drinks found, display message
-        : <p className={styles.noResults}>No Drinks Found!</p>
+        : <p>No Drinks Found!</p>
       }
       </main>
 
@@ -135,7 +135,7 @@ export default function Search(props) {
 function DrinkPreview({id, name, image}) {
   const noImage = "/No_image_available.svg.png"
   return (
-      <Link href={'/drink/' + id} className={styles.preview}>
+      <Link href={'/drink/' + id}>
         <h1>{name}</h1>
         <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
         <span></span>

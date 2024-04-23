@@ -5,20 +5,20 @@ import useLogout from "../../../03-DB_and_Auth/mongo-auth-example/hooks/useLogou
 export default function Header(props) {
   const logout = useLogout();
   return (
-    <header className={styles.container}>
+    <header >
       {props.isLoggedIn ? (
         <>
           <p>
             <Link href="/">Home</Link>
           </p>
-          <div className={styles.container}>
+          <div >
             <p>Welcome, {props.username}!</p>
-            <div className={styles.grid}>
-              <Link href="/search" className={styles.card}>
+            <div >
+              <Link href="/search" >
                 <h2>Search for a drink</h2>
               </Link>
             </div>
-            <p onClick={logout} style={{ cursor: "pointer" }}>
+            <p onClick={logout} >
               Logout
             </p>
           </div>

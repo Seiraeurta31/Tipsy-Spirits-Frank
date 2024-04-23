@@ -147,7 +147,7 @@ function DrinkDetails({name, image, alcoholic, ingredients, instructions}) {
       <>
           <h1>{name}</h1>
           <p>{alcoholic == "Alcoholic" ? "Alcoholic Drink" : "Non-Alcoholic Drink"}</p>
-          <Image src={image ? image : noImage} width={556} height={370} alt={name} className={styles.recipeImg}/>
+          <Image src={image ? image : noImage} width={556} height={370} alt={name} />
           <ul>
             {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
           </ul>
