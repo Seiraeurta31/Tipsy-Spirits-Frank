@@ -13,6 +13,11 @@ export default function Header(props) {
           </p>
           <div className={styles.container}>
             <p>Welcome, {props.username}!</p>
+            <div className={styles.grid}>
+              <Link href="/search" className={styles.card}>
+                <h2>Search for a drink</h2>
+              </Link>
+            </div>
             <p onClick={logout} style={{ cursor: "pointer" }}>
               Logout
             </p>

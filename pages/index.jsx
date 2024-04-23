@@ -66,13 +66,7 @@ export default function Home(props) {
               <Link href="/favorites" className={styles.card}>
                 <h2>My Favorites</h2>
               </Link>
-              <div
-                onClick={logout}
-                style={{ cursor: "pointer" }}
-                className={styles.card}
-              >
-                <h2>Logout</h2>
-              </div>
+  
             </>
           ) : (
             <>
