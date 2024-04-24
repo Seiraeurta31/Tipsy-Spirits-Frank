@@ -25,11 +25,10 @@ export const getServerSideProps = withIronSessionSsr(
     
     console.log("All Favorites: ", allDrinks)
     
-    if(allDrinks){
+    if(allDrinks?.length){
       props.allDrinks = allDrinks
     }
       
-
     return { props };
   },
   sessionOptions
@@ -62,7 +61,7 @@ export default function Favorites(props) {
       
         {
         //If drins exist, render drink components with data
-        props.allDrinks.length
+        props.allDrinks
         ? <section>
             <div> 
               {props.allDrinks.map((drink, i) => (
@@ -79,7 +78,6 @@ export default function Favorites(props) {
         : <p >No favorite drinks</p>
         }
 
-        
       </main>
 
       <Footer/>

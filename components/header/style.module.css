@@ -1,24 +1,14 @@
-.imgContainerWelcome {
-  background-image: url("../../public/AdobeStock_664724076.jpg");
-  width: 1500x;
-  height: 1000px;
-}
-
-.imgContainerHome{
-  background-image: url("../../public/AdobeStock_632078530.jpeg");
-  width: 1500x;
-  height: 1000px;
-}
-
-.navLinksContainer {
+.headerContainer {
   display: flex;
   justify-content:space-around;
   align-items: center;
   background-color: black;
-  height: 50px,
-}
-
-.navLinksContainer a {
-
   color: white;
+  height: 50px;
+  width: 100%;
+  padding-top: 20px;
 }
+
+
+
+
