@@ -13,10 +13,12 @@
 .navLinksContainer {
   display: flex;
   justify-content:space-around;
+  align-items: center;
   background-color: black;
-  color: blanchedalmond;
+  height: 50px,
 }
 
 .navLinksContainer a {
+
   color: white;
 }

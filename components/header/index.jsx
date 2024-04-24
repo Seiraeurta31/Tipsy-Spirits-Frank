@@ -8,7 +8,6 @@ export default function Header(props) {
     <header>
       {props.isLoggedIn ? (
         <>
-          <div className={styles.imgContainerHome}></div>
 
           <div className={styles.navLinksContainer}>
             <a href="/" className={styles.linkColor} > Home </a>
@@ -16,6 +15,11 @@ export default function Header(props) {
             <a href="/search" className={styles.linkColor} > Search </a>
             <a onClick={logout} style={{ cursor: "pointer" }} className={styles.linkColor}>Logout</a>
           </div>
+
+        {/* ADD IF STATEMENTS FOR HEADER IMAGE
+          <div className={styles.imgContainerHome}></div> */}
+
+          
         </>
       ) : (
         <>
