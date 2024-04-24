@@ -51,15 +51,14 @@ export default function Home(props) {
       <Header isLoggedIn={props.isLoggedIn} username={props?.user?.username} image={"/HomePage.jpg"}/>
 
       <main >
-        <h1 className={styles.sitename}>
-          Welcome to Tipsy Spirits
-        </h1>
-   
-
-        <div >
+        
+        <div className={styles.homeContainer}>
           {props.isLoggedIn ? (
             <>
-              <div>
+              <h1 className={styles.drinkSpecialTitle}>
+                Drink Special
+              </h1>
+              <div className={styles.randomDrinkContainer}>
               {randomDrink
                 //If random drink exists
                 ? <section>
@@ -79,10 +78,13 @@ export default function Home(props) {
               }
               </div>
 
-              <Link href="/favorites" >
-                <h2>My Favorites</h2>
-              </Link>
-  
+              <button className={styles.favoritesButton}>
+                <Link href="/favorites" >
+                  <h2>My Favorites</h2>
+                </Link>
+              </button>
+
+        
             </>
           ) : (
             <>
@@ -107,8 +109,8 @@ function RandomDrink({id, name, image}) {
   const noImage = "/No_image_available.svg.png"
   return (
       <Link href={'/drink/' + id}>
-        <h1>{name}</h1>
-        <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
+        <h1 className={styles.randomDrinkName}>{name}</h1>
+        <Image src={image ? image : noImage} width="300" height="300" alt="picture" className={styles.randomDrinkIMG}/>
         <span></span>
       </Link>
     
