@@ -42,7 +42,7 @@ export default function Home(props) {
       <Header isLoggedIn={props.isLoggedIn} username={props?.user?.username} />
 
       <main >
-        <h1 >
+        <h1 className={styles.sitename}>
           Welcome to Tipsy Spirits
         </h1>
 
