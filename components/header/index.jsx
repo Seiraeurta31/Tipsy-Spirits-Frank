@@ -9,7 +9,7 @@ export default function Header(props) {
       {props.isLoggedIn ? (
         <>
           <Link href="/">Home</Link>
-          <Link href="/favorites">Favorites!</Link>
+          <Link href="/favorites">Favorites</Link>
           <Link href="/search">Search</Link>
           <a onClick={logout} style={{ cursor: "pointer" }}>Logout</a> 
         </>
