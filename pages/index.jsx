@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
@@ -7,6 +8,7 @@ import styles from "../styles/Home.module.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import useLogout from "../hooks/useLogout";
+import { getRandomDrink } from "../util/drinks";
 
 
 export const getServerSideProps = withIronSessionSsr(
@@ -22,6 +24,12 @@ export const getServerSideProps = withIronSessionSsr(
 
 
   //TODO: Get random drink  
+  const randomDrink = await getRandomDrink()
+  if(randomDrink){
+    props.randomDrink = randomDrink
+  } 
+
+
 
     return { props };
   },
@@ -30,6 +38,7 @@ export const getServerSideProps = withIronSessionSsr(
 
 export default function Home(props) {
   const router = useRouter();
+  const randomDrink = props.randomDrink //an array of drinks
 
   return (
     <div >
@@ -47,19 +56,25 @@ export default function Home(props) {
         </h1>
 
         <div>
-          {props.isLoggedIn ? (
-            <>
-              <p >
-                Here is the drink of the day
-              </p>
-            </>
-          ): (
-            <>
-              <p >
-                Log in or Sign Up!
-              </p>
-            </>
-          )}
+          {
+          //If drins exist, render drink components with data
+          randomDrink
+          ? <section>
+            <div> 
+              {randomDrink.map((drink, i) => (
+                <RandomDrink 
+                  key={i}
+                  id={drink.cocktailDbId} 
+                  name={drink.name} 
+                  image={drink.image}>
+                </RandomDrink>
+              ))}
+            </div>
+            
+          </section>
+          //If no drinks found, display message
+          : <p>No Drinks Found!</p>
+          }
         </div>
        
 
@@ -88,4 +103,16 @@ export default function Home(props) {
       <Footer/>
     </div>
   );
+}
+
+function RandomDrink({id, name, image}) {
+  const noImage = "/No_image_available.svg.png"
+  return (
+      <Link href={'/drink/' + id}>
+        <h1>{name}</h1>
+        <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
+        <span></span>
+      </Link>
+    
+  )
 }

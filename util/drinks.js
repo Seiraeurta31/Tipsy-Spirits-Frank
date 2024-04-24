@@ -44,7 +44,7 @@ export async function getDrinkById(drinkId) {
 
 
 //GET drinks by id from drinks/[id]
-export async function getRandomDrink(drinkId) {
+export async function getRandomDrink() {
 
     const res = await fetch(
         `https://www.thecocktaildb.com/api/json/v2/${process.env.API_KEY}/random.php` 
