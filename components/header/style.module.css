@@ -1,14 +1,25 @@
 .headerContainer {
   display: flex;
-  justify-content:space-around;
-  align-items: center;
-  background-color: black;
+  flex-direction: column;
   color: white;
-  height: 50px;
+  height: 500px;
   width: 100%;
-  padding-top: 20px;
 }
 
+.headerImage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.navLinkContainer {
+  display: flex;
+  justify-content:space-around;
+  align-items: flex-start;
+  justify-content: space-around;
+  color: white;
+  padding: 20px;
+}
 
 
 

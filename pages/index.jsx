@@ -48,7 +48,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header isLoggedIn={props.isLoggedIn} username={props?.user?.username} />
+      <Header isLoggedIn={props.isLoggedIn} username={props?.user?.username} image={"/HomePage.jpg"}/>
 
       <main >
         <h1 className={styles.sitename}>
