@@ -1,6 +1,22 @@
-.container {
+.navbar {
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  color: black;
+  height: 40px;
+  width: 100%
+}
+
+.img-container{
+  display: flex;
   background-color: black;
+}
+
+.link{
+  color: magenta;
+}
+
+.navLinks-container {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
 }
