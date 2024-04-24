@@ -23,8 +23,6 @@ export const getServerSideProps = withIronSessionSsr(
 
     const allDrinks = await db.drink.getAllFavoriteDrinks(req.session.user._id)
     
-    console.log("All Favorites: ", allDrinks)
-    
     if(allDrinks?.length){
       props.allDrinks = allDrinks
     }

@@ -19,10 +19,7 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
     if (user) {
       props.user = req.session.user
     }
-
-    console.log("Params ID for details page: ", params.id)
     const drink = await getDrinkById(params.id)  //Drink from cocktial DB API
-    console.log("Drink: ", drink)
 
     let isFavorite = false
     
@@ -31,15 +28,11 @@ export const getServerSideProps = withIronSessionSsr( //iron sessions grabs sess
       props.user = req.session.user
       const favoriteDrink = await db.drink.getFavoriteDrinkById(req.session.user._id, params.id)
       
-      console.log("Favorite Drink: ", favoriteDrink)
-      
       if(favoriteDrink !== null){
         drink[0] = favoriteDrink
         isFavorite = true
       }
     }  
-
-    console.log("Favorite value: ", isFavorite)
 
     //If drink was found save it to props
     if (drink)
@@ -59,11 +52,9 @@ export default function Drink( props) {
   const router = useRouter()
   const { isLoggedIn } = props
   const [drink] = props.drink // destructure out the drink from array prop
-  console.log("Drink: ", drink) //validate drink exists
 
   // const isFavorite = props.isFavorite //Favorite book
   let favorite = props.favorite
-
 
 
   //ROUTE CALLS from buttons to ADD/ DELETE favorites from database: 
@@ -96,7 +87,6 @@ export default function Drink( props) {
       },
       body: JSON.stringify({id: drink.id})
     })
-    console.log("Deleted drink ID response: ", res)
     // Call router.replace(router.asPath) if you receive a 200 status
     if (res.status === 200) {
       router.replace(router.asPath)

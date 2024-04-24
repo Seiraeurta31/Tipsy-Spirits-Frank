@@ -54,33 +54,31 @@ export default function Home(props) {
         <h1 className={styles.sitename}>
           Welcome to Tipsy Spirits
         </h1>
-
-        <div>
-          {
-          //If drins exist, render drink components with data
-          randomDrink
-          ? <section>
-            <div> 
-              {randomDrink.map((drink, i) => (
-                <RandomDrink 
-                  key={i}
-                  id={drink.cocktailDbId} 
-                  name={drink.name} 
-                  image={drink.image}>
-                </RandomDrink>
-              ))}
-            </div>
-            
-          </section>
-          //If no drinks found, display message
-          : <p>No Drinks Found!</p>
-          }
-        </div>
-       
+   
 
         <div >
           {props.isLoggedIn ? (
             <>
+              <div>
+              {randomDrink
+                //If random drink exists
+                ? <section>
+                  <div> 
+                    {randomDrink.map((drink, i) => (
+                      <RandomDrink 
+                        key={i}
+                        id={drink.cocktailDbId} 
+                        name={drink.name} 
+                        image={drink.image}>
+                      </RandomDrink>
+                    ))}
+                  </div>
+                </section>
+                  //If no drinks found, display message
+                : <p>No Drinks Found!</p>
+              }
+              </div>
+
               <Link href="/favorites" >
                 <h2>My Favorites</h2>
               </Link>

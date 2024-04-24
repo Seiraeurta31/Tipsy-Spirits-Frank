@@ -44,7 +44,7 @@ export default function Login(props) {
         },
         body: JSON.stringify({ username, password }),
       });
-      if (res.status === 200) return router.push("/favorites");
+      if (res.status === 200) return router.push("/");
       const { error: message } = await res.json();
       setError(message);
     } catch (err) {
@@ -65,15 +65,6 @@ export default function Login(props) {
         <h1 className={styles.title}>
           Account Log In:
         </h1>
-
-        {/* <p className={styles.description}>
-          Current Location: <code className={styles.code}>{router.asPath}</code>
-          <br />
-          Status:{" "}
-          <code className={styles.code}>
-            {!props.isLoggedIn && " Not"} Logged In
-          </code>
-        </p> */}
 
         <form
           className={[styles.card, styles.form].join(" ")}
