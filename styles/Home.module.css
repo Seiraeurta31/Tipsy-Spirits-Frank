@@ -9,14 +9,17 @@
   }
 
 
-.homeContainer {
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.drinkSpecialTitle {
+
+
+
+.drinkSpecialTitle{
     text-align: center;
     font-family: Katerlin-51z;
     font-weight: 200;
@@ -26,6 +29,7 @@
     margin-top: -540px;
 }
 
+
 .randomDrinkContainer {
     display: flex;
     flex-direction: column;
@@ -33,6 +37,7 @@
     align-items: center;
     background-color: rgb(31, 31, 31);
     padding: 20px;
+    width: auto;
     border-radius: 15px;
     padding-top: -100px;
 }
@@ -48,19 +53,92 @@
 }
 
 .randomDrinkIMG {
-
+    display: flex;
     border: 0px solid rgb(133, 43, 43);
     border-width: 5px;
-
+    align-items: center;
+    align-content: center;
 }
 
 .favoritesButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(133, 43, 43);
     color: white;
+    height: 50px;
+    width: 200px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 15px;
+}
+
+
+
+
+.welcomeTitleContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    width: 600px;
+    height: 100px;
+    margin-top: 100px;
+    z-index: 1;
+}
+
+.welcomeTitle {
+    text-align: center;
+    font-family: Katerlin-51z;
+    font-weight: 200;
+    font-size: 100px;
+    padding-top: 10px;
+    margin-top: -50px;
+}
+
+.subWelcomeTitle{
+    text-align: center;
+    font-family: LoveYaLikeASister-Regular;
+    font-weight: 200;
+    font-size: 30px;
+    width: 600px;
+}
+
+.welcomeButtonContainer {
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: rgb(31, 31, 31);
+    height: 350px;
+    padding: 40px;
+    padding-top: 200px;
+    padding-bottom: 60px;
+    border-radius: 15px;
+    margin-top: 300px;
+    margin-bottom: 100px;
+    position: absolute;
+
+}
+
+.welcomeButton {
+    display: flex;
+    font-family: LoveYaLikeASister-Regular; 
+    font-size: 20px; 
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(133, 43, 43);
+    color: white;
+    height: 50px;
+    width: 200px;
     margin-top: 30px;
     padding-right: 25px;
     padding-left: 25px;
     border-radius: 15px;
 }
-  
+
 

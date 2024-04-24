@@ -7,7 +7,6 @@ import sessionOptions from "../config/session";
 import styles from "../styles/Home.module.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import useLogout from "../hooks/useLogout";
 import { getRandomDrink } from "../util/drinks";
 
 
@@ -22,19 +21,15 @@ export const getServerSideProps = withIronSessionSsr(
       props.isLoggedIn = false;
     }
 
-
-  //TODO: Get random drink  
   const randomDrink = await getRandomDrink()
   if(randomDrink){
     props.randomDrink = randomDrink
   } 
-
-
-
     return { props };
   },
   sessionOptions
 );
+
 
 export default function Home(props) {
   const router = useRouter();
@@ -52,7 +47,7 @@ export default function Home(props) {
 
       <main >
         
-        <div className={styles.homeContainer}>
+        <div className={styles.container}>
           {props.isLoggedIn ? (
             <>
               <h1 className={styles.drinkSpecialTitle}>
@@ -78,23 +73,32 @@ export default function Home(props) {
               }
               </div>
 
-              <button className={styles.favoritesButton}>
-                <Link href="/favorites" >
+                <Link href="/favorites" className={styles.favoritesButton}>
                   <h2>My Favorites</h2>
                 </Link>
-              </button>
 
         
             </>
           ) : (
             <>
-              <Link href="/login" >
-                <h2>Login </h2>
-              </Link>
+              <div className={styles.welcomeTitleContainer}>
+                <h2 className={styles.subWelcomeTitle}>
+                  Welcome to
+                </h2>
+                <h2 className={styles.welcomeTitle}>
+                  Tipsy Spirits
+                </h2>
+              </div>
+              
+              <div className={styles.welcomeButtonContainer}>
+                  <Link href="/login" className={styles.welcomeButton}>
+                    <h2>Login </h2>
+                  </Link>
 
-              <Link href="/signup" >
-                <h2>Sign Up </h2>
-              </Link>
+                  <Link href="/signup" className={styles.welcomeButton }>
+                    <h2>Sign Up </h2>
+                  </Link>
+              </div>
             </>
           )}
         </div>
