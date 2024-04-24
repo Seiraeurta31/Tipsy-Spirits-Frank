@@ -1,5 +1,4 @@
 .container {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  text-align: center;
+  color: grey;
 }
