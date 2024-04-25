@@ -94,4 +94,17 @@
     flex-direction: column; 
   }
 
+  .drinkIMG {
+    width: 200px;
+    height: 200px;
+  }
+
+  .drinkName {
+    font-size: 60px;
+  }
+  
+  .drinkType {
+    padding-top: 1px;
+  }
+
 }  
