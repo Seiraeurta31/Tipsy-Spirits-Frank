@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/favorites.module.css";
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
 import Header from "../components/header";
@@ -44,10 +44,10 @@ export default function Favorites(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header isLoggedIn={props.isLoggedIn} username={props.user.username} />
+      <Header isLoggedIn={props.isLoggedIn} username={props.user.username} image={"/Favorites.jpg"}/>
 
-      <main>
-        <h1>
+      <main className={styles.container}>
+        <h1 className={styles.favoritesTitle}>
           Favorites Page!
         </h1>
        
@@ -57,25 +57,28 @@ export default function Favorites(props) {
           </Link>
         </div>
       
-        {
-        //If drins exist, render drink components with data
-        props.allDrinks
-        ? <section>
-            <div> 
-              {props.allDrinks.map((drink, i) => (
-                <FavoriteDrink 
-                  key={i}
-                  id={drink.cocktailDbId} 
-                  name={drink.name} 
-                  image={drink.image}>
-                </FavoriteDrink>
-              ))}
-            </div>
-          </section>
-        //If no drinks found, display message
-        : <p >No favorite drinks</p>
-        }
+        <div className={styles.favoritesContainer}>
+          {props.allDrinks ? (
+            <>
+              <div className={styles.favoritesContainer}> 
+                {props.allDrinks.map((drink, i) => (
+                  <FavoriteDrink 
+                    key={i}
+                    id={drink.cocktailDbId} 
+                    name={drink.name} 
+                    image={drink.image}>
+                  </FavoriteDrink>
+                ))}
+              </div>
+            </>
+          ):( 
+            <>
+              <p >No favorite drinks</p>
+            </>
+          )}
 
+        </div>
+        
       </main>
 
       <Footer/>

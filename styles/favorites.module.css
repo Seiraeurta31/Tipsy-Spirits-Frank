@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "Katerlin-51z";
+    src: url(../public/Katerlin-51zjB.ttf);
+  }
+
+@font-face {
+    font-family: "LoveYaLikeASister-Regular";
+    src: url(../public/LoveYaLikeASister-Regular.ttf);
+  }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.favoritesTitle {
+    text-align: center;
+    font-family: Katerlin-51z;
+    font-weight: 200;
+    font-size: 100px;
+    padding-top: -150px;
+
+    position: absolute;
+}
+
+.favoritesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(31, 31, 31);
+  padding: 20px;
+  width: 60%;
+  height: auto;
+  margin-top: 50px;
+  border-radius: 15px;
+}
