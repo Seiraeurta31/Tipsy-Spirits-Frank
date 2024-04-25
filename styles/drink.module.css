@@ -1,71 +1,97 @@
-.titleGroup {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+@font-face {
+  font-family: "Katerlin-51z";
+  src: url(../public/Katerlin-51zjB.ttf);
 }
 
-.titleGroup img {
-  box-shadow: 2px 2px 12px #888;
+@font-face {
+  font-family: "LoveYaLikeASister-Regular";
+  src: url(../public/LoveYaLikeASister-Regular.ttf);
 }
 
-.titleGroup h1 {
-  margin-top: 0;
-  max-width: 800px;
-}
-
-.imgContainer {
-  position: relative;
-  transition: 500ms ease;
-}
-.imgContainer:is(:hover, :focus) {
-  transform: scale(1.1);
-  box-shadow: none;
-}
-.imgContainer span {
-  transform: rotateZ(45deg);
-  position: absolute;
-  bottom: 25px;
-  left: -3px;
-  background-color: var(--primary);
-  color: white;
-  font-size: 0.7rem;
-  padding: 2.25px;
-}
-.imgContainer span:after {
-  content: "";
-  position: absolute;
-  left: 99.5%;
-  top: 0;
-  border: 10px solid;
-  border-color: var(--primary) transparent transparent var(--primary);
-}
-.imgContainer span:before {
-  content: "";
-  position: absolute;
-  right: 99.5%;
-  top: 0;
-  border: 10px solid;
-  border-color: var(--primary) var(--primary) transparent transparent;
-}
-
-.controls {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.links {
+.detailsContainer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px;
 }
 
-@media screen and (max-width: 975px) {
-  .titleGroup {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+.drinkName {
+  text-align: center;
+  font-family: Katerlin-51z;
+  font-weight: 200;
+  font-size: 80px;
+  position: absolute;
+  margin-top: -60px;
 }
+
+.drinkType {
+  color: white;
+  text-align: center;
+  font-family: LoveYaLikeASister-Regular; 
+  font-size: 20px; 
+  font-weight: 200;
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+.drinkIMG {
+  display: flex;
+  border: 0px solid rgb(133, 43, 43);
+  border-width: 5px;
+  align-items: center;
+  align-content: center;
+}
+
+.imgIngredientsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 10px;
+  margin-bottom: 30px;
+}
+
+.button {
+  display: flex;
+  font-family: LoveYaLikeASister-Regular; 
+  font-size: 20px; 
+  font-weight: 100;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(133, 43, 43);
+  color: white;
+  height: 40px;
+  width: 250px;
+  margin-top: 30px;
+  padding-right: 5px;
+  padding-left: 5px;
+  border-radius: 15px;
+}
+
+
+@media screen and (max-width: 450px) {
+  
+  .buttonContainer {
+    flex-direction: column; 
+  }
+
+}  

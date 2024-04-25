@@ -97,23 +97,22 @@
 
 @media screen and (max-width: 450px) {
   
-.favoritesTitle {
-  font-size: 80px;
-  margin-top: 10px;
+  .favoritesTitle {
+    font-size: 80px;
+    margin-top: 10px;
+  }
 
-}
-
-.randomDrinkContainer {
-    padding: 50px;
-    width: 350px;
-    height: 400px;
-    margin-top: 50px;
-    padding-top: -80px;
-}
+  .randomDrinkContainer {
+      padding: 50px;
+      width: 350px;
+      height: 400px;
+      margin-top: 50px;
+      padding-top: -80px;
+  }
   
-.searchButton {
-  font-size: 15px; 
-  width: 300px;
-}
-  
+  .searchButton {
+    font-size: 15px; 
+    width: 300px;
+  }
+    
 }

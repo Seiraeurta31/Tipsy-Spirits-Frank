@@ -99,26 +99,29 @@ export default function Drink( props) {
         <title>Drink Favorites</title>
         <meta name="description" content="A view of favorite drinks" />
       </Head>
-      <Header isLoggedIn={isLoggedIn} />
-      
-      
-      <DrinkDetails 
-        cocktailDbId={drink.cocktailDbId} 
-        name={drink.name} 
-        image={drink.image}
-        alcoholic={drink.alcoholic}
-        ingredients={drink.ingredients}
-        instructions={drink.instructions}>
-      </DrinkDetails>
 
-      {favorite  // Tests if drink is currently a favorite
-      //if its a favorite, show button to remove favorite
-      ? <button onClick={removeFromFavorites} type="submit">Remove from favorites</button>
-      //if its NOT a favorite, show button to add to favorites
-      : <button onClick={addToFavorites} type="submit">Add to Favorites</button>
-      }
-      <button onClick={() => router.back()} type="submit">Back</button>
+      <Header isLoggedIn={isLoggedIn} image={"/Drink.jpg"}/>
       
+      <div className={styles.container}>
+        <DrinkDetails 
+          cocktailDbId={drink.cocktailDbId} 
+          name={drink.name} 
+          image={drink.image}
+          alcoholic={drink.alcoholic}
+          ingredients={drink.ingredients}
+          instructions={drink.instructions}>
+        </DrinkDetails>
+
+        <div className={styles.buttonContainer}>
+          {favorite  // Tests if drink is currently a favorite
+          //if its a favorite, show button to remove favorite
+          ? <button onClick={removeFromFavorites} type="submit" className={styles.button}>Remove from favorites</button>
+          //if its NOT a favorite, show button to add to favorites
+          : <button onClick={addToFavorites} type="submit" className={styles.button}>Add to Favorites</button>
+          }
+          <button onClick={() => router.back()} type="submit" className={styles.button}>Back</button>
+        </div>
+      </div>  
     </>
   )
 }   
@@ -128,15 +131,18 @@ function DrinkDetails({name, image, alcoholic, ingredients, instructions}) {
     const noImage = "/No_image_available.svg.png"
 
     return (
-      <>
-          <h1>{name}</h1>
-          <p>{alcoholic == "Alcoholic" ? "Alcoholic Drink" : "Non-Alcoholic Drink"}</p>
-          <Image src={image ? image : noImage} width={556} height={370} alt={name} />
-          <ul>
-            {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
-          </ul>
+      <div className={styles.detailsContainer}>
+          <h1 className={styles.drinkName}>{name}</h1>
+          <p className={styles.drinkType}> {alcoholic == "Alcoholic" ? "Alcoholic Drink" : "Non-Alcoholic Drink"}</p>
+          <div className={styles.imgIngredientsContainer}>
+            <Image src={image ? image : noImage} width={250} height={250} alt={name}  className={styles.drinkIMG }/>
+            <ul>
+              {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
+            </ul>
+          </div>
           <p>{instructions}</p>
-      </>
+      </div>
+          
     )
   }
   

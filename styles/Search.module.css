@@ -143,10 +143,21 @@
 
 @media screen and (max-width: 450px) {
   
-    .title {
-        font-size: 70px;
-    }
+  .title {
+      font-size: 70px;
+  }
 
+  .form {
+    width: 300px;
+  }
+
+  .button {
+    height: 40px;
+    width: 230px;
+    padding-right: 5px;
+    padding-left: 5px;
+
+  }
 
 }
   
