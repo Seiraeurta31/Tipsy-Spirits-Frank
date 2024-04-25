@@ -3,13 +3,9 @@ import dbConnect from '../connection'
 
 //CRUD for getting, creating, deleting drinks from "favorites"
 
-
-
 //READ/GET ALL drinks in favorites list
 export async function getAllFavoriteDrinks(userId) {
 
-  console.log("Get All favorites TRIGGERED")
-  //Start up database connection
   await dbConnect()
   
   //Check for user, if none, return null, otherwise proceed to return all favorite drinks under user.
@@ -18,11 +14,9 @@ export async function getAllFavoriteDrinks(userId) {
   return user.favoriteDrinks.map(drink=> convertDrinkIdToString(drink))
 }
 
-
 //READ/GET single drink from favorites list by drink Id
 export async function getFavoriteDrinkById(userId, drinkId) {
 
-  //Start up database connection
   await dbConnect()
 
   //Check for user, if none, return null, otherwise proceed to find drink by user.
@@ -40,14 +34,13 @@ export async function getFavoriteDrinkById(userId, drinkId) {
 //CREATE/ADD drink to favorites list
 export async function addFavoriteDrink(userId, drink) {
 
-  //Start up database connection
   await dbConnect()
 
   //If user exists, add drink to user Favorites
   const user = await User.findByIdAndUpdate(
     userId,
     { $addToSet: { favoriteDrinks: drink } },  //Query language for MongoDB to add object to an array (non duplicate)  
-    { new: true }  // Ensures new "Favorites" under user is sent
+    { new: true } 
   )
   //If user was not found, return null
   if (!user) return null
@@ -59,8 +52,7 @@ export async function addFavoriteDrink(userId, drink) {
 }
 
 
-//DELETE/REMOVE book from Favorites list
-
+//DELETE/REMOVE drink from Favorites list
 export async function removeFavoriteDrink(userId, drinkId) {
 
   //Start up database connection

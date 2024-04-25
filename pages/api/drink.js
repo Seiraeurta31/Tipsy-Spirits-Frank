@@ -13,14 +13,13 @@ export default withIronSessionApiRoute(
 
   //API Routes/SECRETARY to handle requests to DB  
     switch(req.method) {
-      // DONE: On a POST request, add a book using db.book.add with request body (must use JSON.parse)
       
       case 'POST': 
         try{
           const drinkToAdd = req.body
           const addedDrink= await db.drink.addFavoriteDrink(userId, drinkToAdd)
           if(addedDrink == null){
-            req.session.destroy()  //incase was able to get in but no info so destroy user
+            req.session.destroy()  
             return res.status(401)
           }
           return res.status(200).json(addedDrink)
