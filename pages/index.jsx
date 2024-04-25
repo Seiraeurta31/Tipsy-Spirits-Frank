@@ -57,16 +57,14 @@ export default function Home(props) {
               {randomDrink
                 //If random drink exists
                 ? <section>
-                  <div> 
-                    {randomDrink.map((drink, i) => (
-                      <RandomDrink 
-                        key={i}
-                        id={drink.cocktailDbId} 
-                        name={drink.name} 
-                        image={drink.image}>
-                      </RandomDrink>
-                    ))}
-                  </div>
+                  {randomDrink.map((drink, i) => (
+                    <RandomDrink 
+                      key={i}
+                      id={drink.cocktailDbId} 
+                      name={drink.name} 
+                      image={drink.image}>
+                    </RandomDrink>
+                  ))}
                 </section>
                   //If no drinks found, display message
                 : <p>No Drinks Found!</p>
@@ -76,8 +74,7 @@ export default function Home(props) {
                 <Link href="/favorites" className={styles.favoritesButton}>
                   <h2>My Favorites</h2>
                 </Link>
-
-        
+                
             </>
           ) : (
             <>
