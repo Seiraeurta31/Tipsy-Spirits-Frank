@@ -47,15 +47,16 @@ export default function Favorites(props) {
       <Header isLoggedIn={props.isLoggedIn} username={props.user.username} image={"/Favorites.jpg"}/>
 
       <main className={styles.container}>
-        <h1 className={styles.favoritesTitle}>
-          Favorites Page!
-        </h1>
-       
-        <div>
+            
+        <div className={styles.searchButton}>
           <Link href="/search">
             <h2>Search for a NEW Drink</h2>
           </Link>
         </div>
+
+        <h1 className={styles.favoritesTitle}>
+          Favorites Page!
+        </h1>
       
         <div className={styles.favoritesContainer}>
           {props.allDrinks ? (

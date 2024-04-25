@@ -26,7 +26,7 @@
     font-size: 100px;
     padding-top: 100px;
     position: absolute;
-    margin-top: -600px;
+    margin-top: -500px;
 }
 
 
@@ -38,9 +38,10 @@
     background-color: rgb(31, 31, 31);
     padding: 50px;
     width: 350px;
-    height: 500px;
+    height: 450px;
     border-radius: 15px;
     padding-top: -100px;
+    margin-top: 50px;
 }
 
 .randomDrink {
@@ -83,8 +84,6 @@
     padding-left: 25px;
     border-radius: 15px;
 }
-
-
 
 
 .welcomeTitleContainer {
@@ -151,3 +150,23 @@
 }
 
 
+@media screen and (max-width: 450px) {
+  
+.drinkSpecialTitle {
+    font-size: 80px;
+    padding-top: 100px;
+    position: absolute;
+    margin-top: -500px;
+}
+
+.randomDrinkContainer {
+    padding: 50px;
+    width: 350px;
+    height: 400px;
+    margin-top: 50px;
+    padding-top: -80px;
+}
+
+
+
+}

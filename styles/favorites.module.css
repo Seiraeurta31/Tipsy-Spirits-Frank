@@ -14,7 +14,24 @@
   align-items: center;
   justify-content: flex-start;
   align-items: center;
+}
 
+
+.searchButton {
+  display: flex;
+  font-family: LoveYaLikeASister-Regular; 
+  font-size: 20px; 
+  font-weight: 100;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(133, 43, 43);
+  color: white;
+  height: 50px;
+  width: 400px;
+  margin-top: 100px;
+  padding-right: 25px;
+  padding-left: 25px;
+  border-radius: 15px;
 }
 
 .favoritesTitle {
@@ -23,19 +40,19 @@
     font-weight: 200;
     font-size: 100px;
     position: absolute;
+    margin-top: -30px;
 }
 
 .favoritesContainer {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   padding: 20px;
-  padding-left: 80px;
   height: auto;
-  row-gap: 100px;
-  column-gap: 100px;
-  margin-top: 50px;
-  padding-top: 100px;
+  row-gap: 50px;
+  column-gap: 50px;
+  padding-top: 50px;
   border-radius: 15px;
 }
 
@@ -74,4 +91,29 @@
   border-width: 5px;
   align-items: center;
   align-content: center;
+}
+
+
+
+@media screen and (max-width: 450px) {
+  
+.favoritesTitle {
+  font-size: 80px;
+  margin-top: 10px;
+
+}
+
+.randomDrinkContainer {
+    padding: 50px;
+    width: 350px;
+    height: 400px;
+    margin-top: 50px;
+    padding-top: -80px;
+}
+  
+.searchButton {
+  font-size: 15px; 
+  width: 300px;
+}
+  
 }
