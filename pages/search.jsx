@@ -55,7 +55,6 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Search(props) {
   const router = useRouter()
   const inputRef = useRef()
-  const inputDivRef = useRef()
   const [query, setQuery] = useState("")
   const drinks = props.drinks //an array of drinks
 
@@ -83,13 +82,12 @@ export default function Search(props) {
         <meta name="description" content="The Tipsy Spirits Search Page" /> 
       </Head>
 
-      <Header isLoggedIn={props.isLoggedIn} />
+      <Header isLoggedIn={props.isLoggedIn} image={"/Favorites.jpg"}/>
 
-      <main>
-        <h1>Drink Search</h1>
-        <form>
+      <main className={styles.main}>
+        <h1 className={styles.title}>Drink Search</h1>
+        <form className={styles.form}>
           <label htmlFor="drink-search">Search for Drink:</label>
-          <div ref={inputDivRef}>
             <input
               ref={inputRef}
               type="text"
@@ -97,17 +95,19 @@ export default function Search(props) {
               id="drink-search"
               value={query}
               autoFocus={true}
-              onChange={e => setQuery(e.target.value)}/>
-            <button onClick={searchByIngredient} type="submit">Search By Ingredient</button>
-            <button onClick={searchByName} type="submit">Search By Name</button>
-          </div>
+              onChange={e => setQuery(e.target.value)}
+              className={styles.inputField}/>
+            <div className={styles.buttonContainer}>
+              <button onClick={searchByIngredient} type="submit" className={styles.button} >Search By Ingredient</button>
+              <button onClick={searchByName} type="submit" className={styles.button}>Search By Name</button>
+            </div>   
         </form>
     
       {
         //If drins exist, render drink components with data
         drinks?.length
         ? <section>
-          <div> 
+          <div className={styles.resultsDrinkContainer}> 
             {drinks.map((drink, i) => (
               <DrinkPreview 
                 key={i}
@@ -133,11 +133,14 @@ export default function Search(props) {
 function DrinkPreview({id, name, image}) {
   const noImage = "/No_image_available.svg.png"
   return (
+    <div className={styles.resultsDrinkCard}>
       <Link href={'/drink/' + id}>
-        <h1>{name}</h1>
-        <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
+        <h1 className={styles.resultsDrinkName}>{name}</h1>
+        <Image src={image ? image : noImage} width="200" height="200" alt="picture" className={styles.resultsDrinkIMG}/>
         <span></span>
       </Link>
+    </div>
+      
     
   )
 }

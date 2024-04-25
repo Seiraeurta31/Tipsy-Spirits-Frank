@@ -1,0 +1,152 @@
+@font-face {
+    font-family: "Katerlin-51z";
+    src: url(../public/Katerlin-51zjB.ttf);
+  }
+
+@font-face {
+    font-family: "LoveYaLikeASister-Regular";
+    src: url(../public/LoveYaLikeASister-Regular.ttf);
+  }
+
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    font-family: Katerlin-51z;
+    font-weight: 200;
+    font-size: 80px;
+    padding-top: 100px;
+    position: absolute;
+    margin: -130px;
+
+}
+  
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(31, 31, 31);
+    padding: 20px;
+    padding-top: 80px;
+    border-radius: 15px;
+    width: 400px;
+}
+
+.form > * {
+    margin-bottom: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    display: flex;
+    font-family: LoveYaLikeASister-Regular; 
+    font-size: 20px; 
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(133, 43, 43);
+    color: white;
+    height: 50px;
+    width: 280px;
+    margin-top: 10px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 15px;
+}
+
+.inputField {
+    width: 200px;
+    height: 40px;
+}
+
+.form > button {
+    cursor: pointer;
+    display: flex;
+    font-family: LoveYaLikeASister-Regular; 
+    font-size: 20px; 
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(133, 43, 43);
+    color: white;
+    height: 40px;
+    width: 100px;
+    margin-top: 30px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 15px;
+}
+
+
+
+
+.resultsDrinkContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: auto;
+  row-gap: 50px;
+  column-gap: 50px;
+  padding-top: 50px;
+  border-radius: 15px;
+}
+
+.resultsDrinkCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(31, 31, 31);
+  width: 245px;
+  height: 255px;
+  border-radius: 15px;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+
+.resultsDrinkName {
+  color: white;
+  text-align: center;
+  font-family: LoveYaLikeASister-Regular; 
+  font-size: 18px; 
+  font-weight: 200;
+  margin-bottom: 10px;
+
+}
+
+.resultsDrink {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.resultsDrinkIMG {
+  display: flex;
+  border: 0px solid rgb(133, 43, 43);
+  border-width: 5px;
+  align-items: center;
+  align-content: center;
+}
+
+
+@media screen and (max-width: 450px) {
+  
+    .title {
+        font-size: 70px;
+    }
+
+
+}
+  
