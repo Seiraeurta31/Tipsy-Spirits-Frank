@@ -3,12 +3,10 @@
   flex-direction: column;
   color: white;
   height: 500px;
-  width: 100%;
 }
 
 .headerImage {
   display: flex;
-  align-items: flex-start;
   justify-content: center;
   max-width: 100%;
   overflow: hidden;

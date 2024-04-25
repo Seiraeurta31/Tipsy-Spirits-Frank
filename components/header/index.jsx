@@ -21,12 +21,10 @@ export default function Header(props) {
           </div>
           
         </>
-      ) : (
-        <>  
+      ) : ( 
           <div className={styles.headerImage}>
             <img src={"../Welcome.jpg"} ></img>
           </div>
-        </>
       )}
     </header>
   );
