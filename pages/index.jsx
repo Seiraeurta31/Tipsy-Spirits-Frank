@@ -112,7 +112,7 @@ export default function Home(props) {
 function RandomDrink({id, name, image}) {
   const noImage = "/No_image_available.svg.png"
   return (
-      <Link href={'/drink/' + id}>
+      <Link href={'/drink/' + id} className={styles.randomDrink}>
         <h1 className={styles.randomDrinkName}>{name}</h1>
         <Image src={image ? image : noImage} width="300" height="300" alt="picture" className={styles.randomDrinkIMG}/>
         <span></span>

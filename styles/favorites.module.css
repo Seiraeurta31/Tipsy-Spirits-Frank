@@ -11,8 +11,10 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: flex-start;
+  align-items: center;
+
 }
 
 .favoritesTitle {
@@ -20,20 +22,56 @@
     font-family: Katerlin-51z;
     font-weight: 200;
     font-size: 100px;
-    padding-top: -150px;
-
     position: absolute;
 }
 
 .favoritesContainer {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 20px;
+  padding-left: 80px;
+  height: auto;
+  row-gap: 100px;
+  column-gap: 100px;
+  margin-top: 50px;
+  padding-top: 100px;
+  border-radius: 15px;
+}
+
+.favoriteDrinkCard {
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(31, 31, 31);
-  padding: 20px;
-  width: 60%;
-  height: auto;
-  margin-top: 50px;
+  width: 245px;
+  height: 255px;
   border-radius: 15px;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+
+.favoriteDrinkName {
+  color: white;
+  text-align: center;
+  font-family: LoveYaLikeASister-Regular; 
+  font-size: 20px; 
+  font-weight: 200;
+  margin-bottom: 10px;
+
+}
+
+.favoriteDrink {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.favoriteDrinkIMG {
+  display: flex;
+  border: 0px solid rgb(133, 43, 43);
+  border-width: 5px;
+  align-items: center;
+  align-content: center;
 }

@@ -60,7 +60,6 @@ export default function Favorites(props) {
         <div className={styles.favoritesContainer}>
           {props.allDrinks ? (
             <>
-              <div className={styles.favoritesContainer}> 
                 {props.allDrinks.map((drink, i) => (
                   <FavoriteDrink 
                     key={i}
@@ -69,7 +68,6 @@ export default function Favorites(props) {
                     image={drink.image}>
                   </FavoriteDrink>
                 ))}
-              </div>
             </>
           ):( 
             <>
@@ -91,11 +89,13 @@ export default function Favorites(props) {
 function FavoriteDrink({id, name, image}) {
   const noImage = "/No_image_available.svg.png"
   return (
-      <Link href={'/drink/' + id} >
-        <h1>{name}</h1>
-        <Image src={image ? image : noImage} width="300" height="300" alt="picture"/>
+    <div className={styles.favoriteDrinkCard }>
+      <Link href={'/drink/' + id} className={styles.favoriteDrink}>
+        <h1 className={styles.favoriteDrinkName}>{name}</h1>
+        <Image src={image ? image : noImage} width="200" height="200" alt="picture" className={styles.favoriteDrinkIMG}/>
         <span></span>
       </Link>
+    </div>  
     
   )
 }
