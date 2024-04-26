@@ -53,7 +53,7 @@ export default function Home(props) {
               <h1 className={styles.drinkSpecialTitle}>
                 Drink Special
               </h1>
-              <div className={styles.randomDrinkContainer}>
+              <div >
               {randomDrink
                 //If random drink exists
                 ? <section>
@@ -70,6 +70,10 @@ export default function Home(props) {
                 : <p>No Drinks Found!</p>
               }
               </div>
+
+                <Link href="/" className={styles.favoritesButton}>
+                  <h2>New Special</h2>
+                </Link>
 
                 <Link href="/favorites" className={styles.favoritesButton}>
                   <h2>My Favorites</h2>
