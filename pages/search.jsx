@@ -133,8 +133,8 @@ export default function Search(props) {
 function DrinkPreview({id, name, image}) {
   const noImage = "/No_image_available.svg.png"
   return (
-    <div className={styles.resultsDrinkCard}>
-      <Link href={'/drink/' + id}>
+    <div >
+      <Link href={'/drink/' + id} className={styles.resultsDrinkCard}>
         <h1 className={styles.resultsDrinkName}>{name}</h1>
         <Image src={image ? image : noImage} width="200" height="200" alt="picture" className={styles.resultsDrinkIMG}/>
         <span></span>

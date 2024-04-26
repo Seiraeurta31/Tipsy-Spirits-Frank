@@ -105,10 +105,11 @@
 
 .resultsDrinkCard {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgb(31, 31, 31);
-  width: 245px;
+  width: 275px;
   height: 255px;
   border-radius: 15px;
   padding-bottom: 30px;
@@ -125,19 +126,9 @@
 
 }
 
-.resultsDrink {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .resultsDrinkIMG {
-  display: flex;
   border: 0px solid rgb(133, 43, 43);
   border-width: 5px;
-  align-items: center;
-  align-content: center;
 }
 
 
