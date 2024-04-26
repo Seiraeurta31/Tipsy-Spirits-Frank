@@ -23,6 +23,17 @@
   justify-content: flex-start;
   align-items: center;
   margin: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+
 }
 
 .drinkName {
@@ -31,7 +42,9 @@
   font-weight: 200;
   font-size: 80px;
   position: absolute;
-  margin-top: -60px;
+  margin-top: -50px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .drinkType {
@@ -45,7 +58,6 @@
 }
 
 .drinkIMG {
-  display: flex;
   border: 0px solid rgb(133, 43, 43);
   border-width: 5px;
   align-items: center;
@@ -57,7 +69,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.ingredients {
+  margin: 0px;
 }
 
 .buttonContainer {
@@ -73,7 +89,7 @@
 .button {
   display: flex;
   font-family: LoveYaLikeASister-Regular; 
-  font-size: 20px; 
+  font-size: 15px; 
   font-weight: 100;
   justify-content: center;
   align-items: center;
@@ -88,19 +104,37 @@
 }
 
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   
   .buttonContainer {
     flex-direction: column; 
   }
 
+  .imgIngredientsContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .drinkIMG {
+
     width: 200px;
     height: 200px;
   }
 
+  .nameContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ingredients {
+    margin: 30px;
+  }
+
   .drinkName {
     font-size: 60px;
+
   }
   
   .drinkType {

@@ -132,15 +132,17 @@ function DrinkDetails({name, image, alcoholic, ingredients, instructions}) {
 
     return (
       <div className={styles.detailsContainer}>
-          <h1 className={styles.drinkName}>{name}</h1>
-          <p className={styles.drinkType}> {alcoholic == "Alcoholic" ? "Alcoholic Drink" : "Non-Alcoholic Drink"}</p>
-          <div className={styles.imgIngredientsContainer}>
-            <Image src={image ? image : noImage} width={250} height={250} alt={name}  className={styles.drinkIMG }/>
-            <ul>
-              {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
-            </ul>
-          </div>
-          <p>{instructions}</p>
+        <div className={styles.nameContainer}>
+          <h1 className={styles.drinkName} >{name}</h1>
+        </div>
+        <p className={styles.drinkType}> {alcoholic == "Alcoholic" ? "Alcoholic Drink" : "Non-Alcoholic Drink"}</p>
+        <div className={styles.imgIngredientsContainer}>
+          <Image src={image ? image : noImage} width={250} height={250} alt={name}  className={styles.drinkIMG }/>
+          <ul className={styles.ingredients}>
+            {ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
+          </ul>
+        </div>
+        <p>{instructions}</p>
       </div>
           
     )
